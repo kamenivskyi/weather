@@ -1,0 +1,23 @@
+.o-header {
+  padding: 15px 0;
+  background-color: $danger;
+
+  &__inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__logo {
+    color: $light;
+    text-decoration: none;
+    font-size: 20px;
+  }
+}
+
+@media (min-width: 768px) {
+  .o-header {
+    padding: 30px 0;
+  }
+}
+

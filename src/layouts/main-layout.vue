@@ -1,6 +1,8 @@
 <template>
   <TheHeader />
-  <slot />
+  <main class="main">
+    <slot />
+  </main>
   <TheFooter />
 </template>
 
