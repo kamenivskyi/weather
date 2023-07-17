@@ -1,0 +1,26 @@
+.m-tabs {
+  display: flex;
+  margin-bottom: 20px;
+
+  &__item {
+    padding: 20px 40px;
+    margin-right: 0;
+    background-color: $light;
+    text-decoration: none;
+    color: $dark;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $dark;
+
+    &:first-child {
+      border-top-left-radius: 30px;
+      border-bottom-left-radius: 30px;
+    }
+
+    &:last-child {
+      border-top-right-radius: 30px;
+      border-bottom-right-radius: 30px;
+    }
+  }
+}

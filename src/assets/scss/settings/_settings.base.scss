@@ -11,5 +11,9 @@ body {
 
 .main {
   padding: 10px 0;
-  background-color: $light;
+}
+
+.router-link-active {
+  background-color: $primary !important;
+  color: $light !important;
 }
