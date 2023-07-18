@@ -1,0 +1,14 @@
+.c-weather-card {
+  max-width: 600px;
+  margin: 0 auto;
+
+  &__header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  &__tabs {
+    margin-bottom: 20px;
+  }
+}
