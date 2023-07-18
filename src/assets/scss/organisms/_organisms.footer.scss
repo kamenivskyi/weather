@@ -1,0 +1,18 @@
+.o-footer {
+  padding: 15px 0;
+  background-color: $warning;
+  color: $light;
+
+  &__inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@media (min-width: 768px) {
+  .o-footer {
+    padding: 30px 0;
+  }
+}
+
