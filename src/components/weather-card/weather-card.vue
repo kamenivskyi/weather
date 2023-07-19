@@ -21,8 +21,22 @@
       <AppButton variant="primary" pill>Add to chosen</AppButton>
     </div>
     <div class="c-weather-card__tabs">
-      <AppButton @click="handleRegimeClick('day')">Day</AppButton>
-      <AppButton @click="handleRegimeClick('week')">Week</AppButton>
+      <AppButton 
+        @click="handleRegimeClick('day')" 
+        :class="{ 
+          'u-bg--primary': selectedRegime === 'day', 
+        }"
+      >
+        Day
+      </AppButton>
+      <AppButton 
+        @click="handleRegimeClick('week')" 
+        :class="{ 
+          'u-bg--primary': selectedRegime === 'week', 
+        }"
+      >
+        Week
+      </AppButton>
     </div>
     <template v-if="isWeatherLoading">
       Loading..
