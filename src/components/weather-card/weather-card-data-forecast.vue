@@ -11,12 +11,15 @@ import WeatherCardDataForecastDay from './weather-card-data-forecast-day.vue';
 import type { ForecastDay } from '@/models';
 
 interface Props {
-  data: ForecastDay[][] | null,
+  data: ForecastDay[][] | null;
 }
 
 const props = defineProps<Props>();
 
-watch(() => props.data, (newData) => {
-  console.log('its new DATA: ', newData);
-})
+watch(
+  () => props.data,
+  (newData) => {
+    console.log('its new DATA: ', newData);
+  }
+);
 </script>

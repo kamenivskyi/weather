@@ -1,6 +1,6 @@
-import { convertToTime, sortByEachDay } from "@/utils";
-import { apiService } from "./api-service";
-import type { CityResponse, WeatherCurrent, WeatherCurrentResponse } from "@/models";
+import { convertToTime, sortByEachDay } from '@/utils';
+import { apiService } from './api-service';
+import type { CityResponse, WeatherCurrent, WeatherCurrentResponse } from '@/models';
 
 export const transformService = {
   simplifyCurrent(obj: WeatherCurrentResponse): WeatherCurrent {
@@ -20,15 +20,15 @@ export const transformService = {
       temp: Math.round(obj.main.temp),
       tempMin: Math.round(obj.main.temp_min),
       tempMax: Math.round(obj.main.temp_max),
-      iconUrl: apiService.getIconUrl(obj.weather[0].icon),
+      iconUrl: apiService.getIconUrl(obj.weather[0].icon)
     };
   },
   simplifyCity(item: CityResponse) {
-    return { 
+    return {
       id: item.id,
       label: `${item.city} ${item.countryCode}`,
       lat: item.latitude,
-      lon: item.longitude,
+      lon: item.longitude
     };
   },
   transformForecastArray(array) {

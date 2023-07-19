@@ -9,20 +9,20 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
-  interface Props {
-    pill?: boolean;
-    type?: 'submit' | 'button' | 'reset',
-    variant?: 'primary' | 'light' | 'danger' | 'warning',
-  }
+interface Props {
+  pill?: boolean;
+  type?: 'submit' | 'button' | 'reset';
+  variant?: 'primary' | 'light' | 'danger' | 'warning';
+}
 
-  const props = withDefaults(defineProps<Props>(), {
-    pill: false,
-    type: 'button',
-    variant: 'light',
-  });
+const props = withDefaults(defineProps<Props>(), {
+  pill: false,
+  type: 'button',
+  variant: 'light'
+});
 
-  const classes = computed(() => ({ 
-    'c-button--pill': props.pill, 
-    [`c-button--${props.variant}`]: true,
-  }));
+const classes = computed(() => ({
+  'c-button--pill': props.pill,
+  [`c-button--${props.variant}`]: true
+}));
 </script>

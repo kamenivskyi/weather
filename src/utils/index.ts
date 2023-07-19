@@ -1,12 +1,11 @@
-import type { ForecastDay } from "@/models";
-import { addDays, isSameDay, getDay } from "date-fns";
+import type { ForecastDay } from '@/models';
+import { addDays, isSameDay, getDay } from 'date-fns';
 
 export const sortByEachDay = (data: ForecastDay[]) => {
   // console.log('getDay: ', getDay(new Date(data[0].dt_txt)));
   let allDays = [];
-  let currentDay = new Date(data[0].dt_txt.split(" ")[0]);
-  const filterDay = (item: any) =>
-    isSameDay(new Date(item.dt_txt.split(" ")[0]), currentDay);
+  let currentDay = new Date(data[0].dt_txt.split(' ')[0]);
+  const filterDay = (item: any) => isSameDay(new Date(item.dt_txt.split(' ')[0]), currentDay);
 
   for (let i = 0; i < 5; i++) {
     let singleDay = data.filter(filterDay);
@@ -29,11 +28,10 @@ export const convertToTime = (value: number) => {
   return time;
 };
 
-
 const addZero = (value: any) => {
   console.log('val: ', value);
   if (value.toString().length < 2) {
-    value = "0" + value;
+    value = '0' + value;
   }
   return value;
 };
@@ -42,7 +40,7 @@ export const getHours = (date: string) => {
   let hours = new Date(date).getHours().toString();
 
   if (hours.length < 2) {
-    hours = "0" + hours;
+    hours = '0' + hours;
   }
-  return hours + ":00";
+  return hours + ':00';
 };

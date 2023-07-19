@@ -13,9 +13,9 @@
     position: relative;
     box-sizing: border-box;
     animation: spin 1s linear infinite;
-  
+
     &::after {
-      content: '';  
+      content: '';
       box-sizing: border-box;
       position: absolute;
       left: 50%;
@@ -27,7 +27,7 @@
       border: 3px solid;
       border-color: $danger transparent;
     }
-  
+
     @keyframes spin {
       0% {
         transform: rotate(0deg);
@@ -35,7 +35,6 @@
       100% {
         transform: rotate(360deg);
       }
-    } 
+    }
   }
 }
-

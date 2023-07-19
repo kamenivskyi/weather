@@ -3,15 +3,15 @@
     <div class="c-weather-card__header">
       <div class="c-weather-card__search-panel">
         <input v-model="value" class="c-input" type="search" placeholder="Search" />
-        
+
         <AppSpinner v-if="isSearching" />
-        
+
         <template v-else-if="emptyCities">Not found</template>
 
         <div v-else-if="isDropdownOpened" class="c-weather-card__dropdown">
-          <AppButton 
-            v-for="item in cities" 
-            class="c-weather-card__dropdown-item" 
+          <AppButton
+            v-for="item in cities"
+            class="c-weather-card__dropdown-item"
             @click="handleCityClick(item.lat, item.lon)"
           >
             {{ item.label }}
@@ -21,34 +21,34 @@
       <AppButton variant="primary" pill>Add to chosen</AppButton>
     </div>
     <div class="c-weather-card__tabs">
-      <AppButton 
-        @click="handleRegimeClick('day')" 
-        :class="{ 
-          'u-bg--primary': selectedRegime === 'day', 
+      <AppButton
+        @click="handleRegimeClick('day')"
+        :class="{
+          'u-bg--primary': selectedRegime === 'day'
         }"
       >
         Day
       </AppButton>
-      <AppButton 
-        @click="handleRegimeClick('week')" 
-        :class="{ 
-          'u-bg--primary': selectedRegime === 'week', 
+      <AppButton
+        @click="handleRegimeClick('week')"
+        :class="{
+          'u-bg--primary': selectedRegime === 'week'
         }"
       >
         Week
       </AppButton>
     </div>
-    
+
     <AppSpinner v-if="isWeatherLoading" />
 
     <template v-else>
       <template v-if="selectedRegime === 'day'">
         <WeatherCardDataCurrent :data="currentWeather" />
-        
-        <WeatherCardCurrentChart 
-          :temperatureMin="currentWeather?.tempMin" 
-          :tempereatureMax="currentWeather?.tempMax" 
-          :tempereatureAvg="currentWeather?.temp" 
+
+        <WeatherCardCurrentChart
+          :temperatureMin="currentWeather?.tempMin"
+          :tempereatureMax="currentWeather?.tempMax"
+          :tempereatureAvg="currentWeather?.temp"
         />
       </template>
 
@@ -56,7 +56,6 @@
         <WeatherCardDataForecast :data="forecastWeather" />
         <WeatherCardForecastChart :data="forecastWeather" />
       </template>
-      
     </template>
   </div>
 </template>
@@ -74,9 +73,9 @@ import WeatherCardCurrentChart from '@/components/weather-card/weather-card-curr
 import WeatherCardForecastChart from '@/components/weather-card/weather-card-forecast-chart.vue';
 
 interface SelectedCity {
-  lat: number 
-  lon: number
-};
+  lat: number;
+  lon: number;
+}
 
 const value = ref('');
 const selectedRegime = ref<'day' | 'week'>('day');
@@ -97,7 +96,7 @@ watch(value, (newVal: string) => {
 
   if (!newVal.trim()) {
     emptyCities.value = false;
-    
+
     if (isDropdownOpened.value) {
       closeDropdown();
     }
@@ -115,25 +114,25 @@ watch(selectedCity, (city: SelectedCity | null) => {
 });
 
 const searchWeather = async () => {
-  return Promise.all([handleSearchCurrent(), handleSearchForecast()])
-    .then(([current, forecast]) => populateWeatherData(current, forecast))
-}
+  return Promise.all([handleSearchCurrent(), handleSearchForecast()]).then(([current, forecast]) =>
+    populateWeatherData(current, forecast)
+  );
+};
 
 const populateWeatherData = (current: WeatherCurrent, forecast: ForecastDay[][]) => {
   currentWeather.value = current;
   forecastWeather.value = forecast;
-}
+};
 
 const handleSearchCurrent = async () => {
   const data = await apiService.getCurrent(selectedCity.value?.lat!, selectedCity.value?.lon!);
-  
+
   return Promise.resolve(data);
 };
 
-
 const handleSearchForecast = async () => {
   const data = await apiService.getForecast(selectedCity.value?.lat!, selectedCity.value?.lon!);
-  
+
   return Promise.resolve(data);
 };
 
@@ -152,11 +151,11 @@ const handleCityClick = (lat: number, lon: number) => {
   closeDropdown();
   resetInput();
 
-  console.log('select: ', lat + ' ' + lon)
+  console.log('select: ', lat + ' ' + lon);
 };
 
-const resetInput = () => value.value = '';
-const closeDropdown = () => isDropdownOpened.value = false;
+const resetInput = () => (value.value = '');
+const closeDropdown = () => (isDropdownOpened.value = false);
 
 const handleSearchCities = async (newVal: string) => {
   isSearching.value = true;
@@ -164,12 +163,11 @@ const handleSearchCities = async (newVal: string) => {
 
   const data = await apiService.getCities(newVal);
   cities.value = data;
-  
+
   isSearching.value = false;
   emptyCities.value = data && data?.length === 0;
   isDropdownOpened.value = data?.length > 0;
 
   console.log('cities: ', cities);
 };
-
 </script>

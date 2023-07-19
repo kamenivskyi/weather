@@ -11,7 +11,7 @@ import type { ForecastDay } from '@/models';
 import { lineChartOptions } from '@/constants';
 
 interface Props {
-  data: ForecastDay[][] | null,
+  data: ForecastDay[][] | null;
 }
 
 const props = defineProps<Props>();
@@ -24,7 +24,7 @@ const averageTemperatures = computed(() => {
     return props.data.map((array: ForecastDay[]) => {
       const sumTemp = array.reduce((sum, item: ForecastDay) => sum + item.main.temp, 0);
       return sumTemp / array.length;
-    })
+    });
   }
   return [];
 });
@@ -38,10 +38,9 @@ const daysOfWeek = computed(() => {
   return [];
 });
 
-const canGenerateChart = computed(() => canvas2Ref.value 
-  && daysOfWeek.value?.length > 0 
-  && averageTemperatures.value?.length > 0
-)
+const canGenerateChart = computed(
+  () => canvas2Ref.value && daysOfWeek.value?.length > 0 && averageTemperatures.value?.length > 0
+);
 
 const getDayOfWeek = (timestamp: number) => {
   const date = new Date(timestamp * 1000);
@@ -50,40 +49,40 @@ const getDayOfWeek = (timestamp: number) => {
 
 onMounted(() => {
   initChart();
-})
+});
 
-watch(props, (newProps) => {
-  if (newProps.data) {
-    initChart();
-  }
-}, { immediate: true, deep: true })
-
+watch(
+  props,
+  (newProps) => {
+    if (newProps.data) {
+      initChart();
+    }
+  },
+  { immediate: true, deep: true }
+);
 
 function initChart() {
-  console.log('props: ', props);
   if (chart.value) {
     chart.value.destroy();
   }
 
   if (canGenerateChart.value) {
-    const chartCtx = canvas2Ref.value.getContext("2d");
+    const chartCtx = canvas2Ref.value.getContext('2d');
 
     chart.value = new Chart(chartCtx, {
-      type: "line",
+      type: 'line',
       data: {
         labels: daysOfWeek.value,
         datasets: [
           {
-            label: "Average Temperature by day",
+            label: 'Average Temperature by day',
             borderWidth: 2,
-            data: averageTemperatures.value,
-          },
-        ],
+            data: averageTemperatures.value
+          }
+        ]
       },
-      options: lineChartOptions,
+      options: lineChartOptions
     });
   }
 }
-
-
 </script>

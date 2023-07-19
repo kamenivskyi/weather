@@ -3,11 +3,10 @@
 </template>
 
 <script setup lang="ts">
-
 interface Props {
-  temperatureMin: number | undefined
-  tempereatureMax: number | undefined
-  tempereatureAvg: number | undefined
+  temperatureMin: number | undefined;
+  tempereatureMax: number | undefined;
+  tempereatureAvg: number | undefined;
 }
 
 const props = defineProps<Props>();
@@ -20,17 +19,19 @@ import { lineChartOptions } from '@/constants';
 const canvasRef = ref<VNodeRef | null>(null);
 const chart = ref<any>(null);
 
-
 onMounted(() => {
   initChart();
-})
+});
 
-watch(props, (newProps) => {
-  if (newProps) {
-    initChart();
-  }
-}, { immediate: true, deep: true })
-
+watch(
+  props,
+  (newProps) => {
+    if (newProps) {
+      initChart();
+    }
+  },
+  { immediate: true, deep: true }
+);
 
 function initChart() {
   console.log('props: ', props);
@@ -39,24 +40,22 @@ function initChart() {
   }
 
   if (canvasRef.value && props.tempereatureAvg) {
-    const chartCtx = canvasRef.value.getContext("2d");
+    const chartCtx = canvasRef.value.getContext('2d');
 
     chart.value = new Chart(chartCtx, {
-      type: "line",
+      type: 'line',
       data: {
-        labels: ['Min', 'Avg', "Max"],
+        labels: ['Min', 'Avg', 'Max'],
         datasets: [
           {
-            label: "Temperature",
+            label: 'Temperature',
             borderWidth: 2,
-            data: [props.temperatureMin, props.tempereatureAvg, props.tempereatureMax],
-          },
-        ],
+            data: [props.temperatureMin, props.tempereatureAvg, props.tempereatureMax]
+          }
+        ]
       },
-      options: lineChartOptions,
+      options: lineChartOptions
     });
   }
 }
-
-
 </script>

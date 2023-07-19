@@ -3,7 +3,7 @@ export const lineChartOptions = {
   scales: {
     x: {
       grid: {
-        display: true,
+        display: true
       }
     },
     y: {
@@ -11,10 +11,10 @@ export const lineChartOptions = {
         display: true
       },
       ticks: {
-        callback: function(value: string) {
+        callback: function (value: string) {
           return value + ' ℃';
         }
       }
-    },
+    }
   }
-}
+};

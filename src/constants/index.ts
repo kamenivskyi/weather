@@ -1,5 +1,3 @@
-import { lineChartOptions } from "./charts";
+import { lineChartOptions } from './charts';
 
-export {
-  lineChartOptions,
-}
+export { lineChartOptions };
