@@ -4,7 +4,7 @@
       <div class="c-weather-card__search-panel">
         <input v-model="value" class="c-input" type="search" placeholder="Search" />
         
-        <template v-if="isSearching">Loading..</template>
+        <AppSpinner v-if="isSearching" />
         
         <template v-else-if="emptyCities">Not found</template>
 
@@ -38,9 +38,8 @@
         Week
       </AppButton>
     </div>
-    <template v-if="isWeatherLoading">
-      Loading..
-    </template>
+    
+    <AppSpinner v-if="isWeatherLoading" />
 
     <template v-else>
       <WeatherCardDataCurrent v-if="selectedRegime === 'day'" :data="currentWeather" />
@@ -53,6 +52,7 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue';
 import AppButton from '@/components/app-button.vue';
+import AppSpinner from '@/components/app-spinner.vue';
 import WeatherCardData from '@/components/weather-card/weather-card-data.vue';
 import WeatherCardChart from '@/components/weather-card/weather-card-chart.vue';
 import debounce from 'lodash.debounce';
