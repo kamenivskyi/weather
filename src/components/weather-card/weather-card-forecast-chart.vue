@@ -32,17 +32,20 @@ const averageTemperatures = computed(() => {
 const daysOfWeek = computed(() => {
   if (props.data) {
     return props.data.map((array: ForecastDay[]) => {
-      return getDayOfWeek(array[0].dt); // Використовуємо перший елемент кожного підмасиву для отримання дати
+      return getDayOfWeek(array[0].dt);
     });
   }
   return [];
 });
 
-const canGenerateChart = computed(() => canvas2Ref.value && daysOfWeek.value && averageTemperatures.value)
+const canGenerateChart = computed(() => canvas2Ref.value 
+  && daysOfWeek.value?.length > 0 
+  && averageTemperatures.value?.length > 0
+)
 
 const getDayOfWeek = (timestamp: number) => {
   const date = new Date(timestamp * 1000);
-  return format(date, 'EEEE'); // 'EEEE' - формат для отримання повної назви дня тижня
+  return format(date, 'EEEE');
 };
 
 onMounted(() => {
