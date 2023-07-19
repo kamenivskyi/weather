@@ -33,6 +33,31 @@ export interface WeatherCurrent {
 
 }
 
+export interface ForecastDay {
+  dt_txt: string, 
+  main: Main, 
+  weather: Weather[], 
+  wind: Wind, 
+  clouds: Clouds,
+  pressure: number,
+}
+
+export interface CityResponse {
+  id: number
+  city: string
+  countryCode: string
+  country: string
+  latitude: number
+  population: number
+  longitude: number
+}
+
+export interface DropdownCity {
+  id: number
+  lat: number
+  lon: number
+  label: string
+}
 
 export interface Coord {
   lon: number
