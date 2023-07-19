@@ -1,14 +1,15 @@
 .c-list {
-  background-color: $light;
+  background-color: $primary;
+  color: $light;
   margin: 20px 0;
   border-radius: $border-radius-sm;
-  border: 1px solid $light-300;
+  border: 1px solid $light;
 
   &__item {
     padding: 15px 20px;
 
     &:not(:last-child) {
-      border-bottom: 1px solid $light-300;
+      border-bottom: 1px solid $light;
     }
   }
 }
