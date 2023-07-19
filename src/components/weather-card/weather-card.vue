@@ -42,10 +42,22 @@
     <AppSpinner v-if="isWeatherLoading" />
 
     <template v-else>
-      <WeatherCardDataCurrent v-if="selectedRegime === 'day'" :data="currentWeather" />
-      <WeatherCardDataForecast v-else-if="selectedRegime === 'week'" :data="forecastWeather" />
+      <template v-if="selectedRegime === 'day'">
+        <WeatherCardDataCurrent :data="currentWeather" />
+        
+        <WeatherCardCurrentChart 
+          :temperatureMin="currentWeather?.tempMin" 
+          :tempereatureMax="currentWeather?.tempMax" 
+          :tempereatureAvg="currentWeather?.temp" 
+        />
+      </template>
+
+      <template v-else-if="selectedRegime === 'week'">
+        <WeatherCardDataForecast :data="forecastWeather" />
+        <WeatherCardForecastChart :data="forecastWeather" />
+      </template>
+      
     </template>
-    <WeatherCardChart />
   </div>
 </template>
 
@@ -53,13 +65,13 @@
 import { ref, watch } from 'vue';
 import AppButton from '@/components/app-button.vue';
 import AppSpinner from '@/components/app-spinner.vue';
-import WeatherCardData from '@/components/weather-card/weather-card-data.vue';
-import WeatherCardChart from '@/components/weather-card/weather-card-chart.vue';
 import debounce from 'lodash.debounce';
 import { apiService } from '@/services/api-service';
 import type { DropdownCity, ForecastDay, WeatherCurrent } from '@/models';
 import WeatherCardDataForecast from './weather-card-data-forecast.vue';
 import WeatherCardDataCurrent from './weather-card-data-current.vue';
+import WeatherCardCurrentChart from '@/components/weather-card/weather-card-current-chart.vue';
+import WeatherCardForecastChart from '@/components/weather-card/weather-card-forecast-chart.vue';
 
 interface SelectedCity {
   lat: number 

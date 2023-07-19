@@ -1,6 +1,8 @@
-import { addDays, isSameDay } from "date-fns";
+import type { ForecastDay } from "@/models";
+import { addDays, isSameDay, getDay } from "date-fns";
 
-export const sortByEachDay = (data: any[]) => {
+export const sortByEachDay = (data: ForecastDay[]) => {
+  // console.log('getDay: ', getDay(new Date(data[0].dt_txt)));
   let allDays = [];
   let currentDay = new Date(data[0].dt_txt.split(" ")[0]);
   const filterDay = (item: any) =>
@@ -12,6 +14,7 @@ export const sortByEachDay = (data: any[]) => {
     allDays.push(singleDay);
     currentDay = addDays(new Date(currentDay), 1);
   }
+
   return allDays;
 };
 

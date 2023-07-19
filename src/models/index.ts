@@ -35,7 +35,8 @@ export interface WeatherCurrent {
 
 export interface ForecastDay {
   dt_txt: string, 
-  main: Main, 
+  main: Main,
+  dt: number,
   weather: Weather[], 
   wind: Wind, 
   clouds: Clouds,
