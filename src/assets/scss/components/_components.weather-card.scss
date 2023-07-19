@@ -6,9 +6,50 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: flex-start;
     margin-bottom: 20px;
   }
+  
   &__tabs {
     margin-bottom: 20px;
+  }
+
+  &__search-panel {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__dropdown {
+    display: flex;
+    flex-direction: column;
+    // outline: none;
+    font-weight: 500;
+
+    &-item {
+      padding: 15px 20px;
+      background-color: $light;
+      transition: background-color 0.2s ease;
+    }
+  }
+  
+  &__forecast-day {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    overflow-y: hidden;
+    margin-bottom: 30px;
+    border-radius: $border-radius-sm;
+    padding: 15px;
+    background-color: $primary;
+
+    &-item {
+      margin-right: 20px;
+      min-width: 200px;
+      color: $light;
+    }
+  }
+
+  &__data-item {
+    margin-bottom: 10px;
   }
 }

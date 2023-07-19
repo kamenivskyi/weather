@@ -1,6 +1,6 @@
 import axios from "axios";
 import { transformService } from "./transform-service";
-import type { WeatherCurrent } from "@/models";
+import type { CityResponse, ForecastDay, WeatherCurrent } from "@/models";
 
 export const apiService = {
   WEATHER_BASE_URL: 'https://api.openweathermap.org/data/2.5',
@@ -20,16 +20,17 @@ export const apiService = {
     ok: 200,
   },
   
-  async getCities(name: string) {
+  async getCities(name: string): Promise<CityResponse[] | any> {
     const MIN_POPULATION = '50000';
     try {
       const { data } = await axios.request({
         ...this.CITIES_OPTIONS,
         url: `${this.CITIES_BASE_URL}/cities?minPopulation=${MIN_POPULATION}&namePrefix=${name}`,
       });
-      console.log('rewww: ', data.data);
+      console.log('cities: ', data.data);
 
-      return data.data;
+      return data.data?.length ? data.data.map(transformService.simplifyCity) : data.data;
+
     } catch (error: unknown) {
       console.error(error);
     }
@@ -56,10 +57,11 @@ export const apiService = {
     return transformService.simplifyCurrent(res);
   },
 
-  async getForecast(lat: number, lon: number) {
+  async getForecast(lat: number, lon: number): Promise<ForecastDay[][]> {
     const res = await this.getWeatherResource(`/forecast?lat=${lat}&lon=${lon}`);
-    console.log('api forecast: ', res)
-    return res;
+    // console.log('api forecast: ', res)
+
+    return res?.list ? transformService.transformForecastArray(res.list) : { list: [] };
   },
 
   getIconUrl(iconCode: string) {
