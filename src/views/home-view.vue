@@ -10,7 +10,12 @@
       </AppButton>
 
       <div class="c-slider">
-        <WeatherCard v-for="num in activeCards" :key="num" />
+        <WeatherCard 
+          v-for="item in store.data.cards" 
+          :data="item" 
+          :key="item.id" 
+          @remove="handleRemoveCard"
+        />
       </div>
       <AppModal :isOpen="showModal" @close="onClose" title="Notification">
         <p class="u-mb-3">There can be a maximum of 5 blocks, remove some to add a new one!</p>
@@ -25,23 +30,41 @@ import { ref, computed } from 'vue';
 import AppButton from '@/components/app-button.vue';
 import AppModal from '@/components/app-modal.vue';
 import WeatherCard from '@/components/weather-card/weather-card.vue';
+import { useHomeCardsStore } from '@/stores/home-cards';
+import type { WeatherCardInterface } from '@/stores/home-cards';
+
+const store = useHomeCardsStore();
 
 const activeCards = ref([1]);
 const showModal = ref(false);
 
 const MAX_ALLOWED_BLOCKS = 5;
 
-const allowToAdd = computed(() => activeCards.value.length < MAX_ALLOWED_BLOCKS);
+const allowToAdd = computed(() => store.data.cards.length < MAX_ALLOWED_BLOCKS);
 
 const handleAddNewCard = () => {
   if (allowToAdd.value) {
-    incrementValue();
+    // incrementValue();
+
+    const newCard = {
+      id: Math.random(),
+      selectedRegime: 'day',
+      selectedCity: null,
+      currentWeather: null,
+      forecastWeather: null,
+    } as WeatherCardInterface;
+
+    store.addWeatherCard(newCard);
   }
   else {
     showModal.value = true;
     console.log('no more allowed');
   }
 }
+
+const handleRemoveCard = (id: number) => {
+  store.removeWeatherCard(id);
+};
 
 const onClose = (value: boolean) => {
   console.log("ON CLOSED: ! ", value)

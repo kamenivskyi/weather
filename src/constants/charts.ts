@@ -12,7 +12,7 @@ export const lineChartOptions = {
       },
       ticks: {
         callback: function (value: string) {
-          return value + ' ℃';
+          return Number(value).toFixed(1) + ' ℃';
         }
       }
     }

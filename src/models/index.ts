@@ -52,6 +52,11 @@ export interface CityResponse {
   longitude: number;
 }
 
+export interface SelectedCity {
+  lat: number;
+  lon: number;
+}
+
 export interface DropdownCity {
   id: number;
   lat: number;
