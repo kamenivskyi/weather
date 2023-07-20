@@ -71,6 +71,7 @@ import WeatherCardDataForecast from './weather-card-data-forecast.vue';
 import WeatherCardDataCurrent from './weather-card-data-current.vue';
 import WeatherCardCurrentChart from '@/components/weather-card/weather-card-current-chart.vue';
 import WeatherCardForecastChart from '@/components/weather-card/weather-card-forecast-chart.vue';
+import AppModal from '../app-modal.vue';
 
 interface SelectedCity {
   lat: number;
