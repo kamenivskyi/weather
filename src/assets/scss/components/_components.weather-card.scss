@@ -1,8 +1,7 @@
 .c-weather-card {
   max-width: 600px;
   margin: 0 auto;
-  padding-left: 15px;
-  padding-right: 15px;
+  padding: 20px 15px;
 
   &__header {
     display: flex;
@@ -38,7 +37,6 @@
     display: flex;
     flex-direction: row;
     overflow-x: auto;
-    overflow-y: hidden;
     margin-bottom: 30px;
     border-radius: $border-radius-sm;
     padding: 15px;

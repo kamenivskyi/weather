@@ -19,6 +19,7 @@
         </div>
       </div>
       <AppButton variant="primary" pill>Add to chosen</AppButton>
+      <AppButton @click="handleRemoveCard" variant="danger" pill>Remove block</AppButton>
     </div>
     <div class="c-weather-card__tabs">
       <AppButton
@@ -61,34 +62,38 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { computed, ref, watch } from 'vue';
 import AppButton from '@/components/app-button.vue';
 import AppSpinner from '@/components/app-spinner.vue';
 import debounce from 'lodash.debounce';
 import { apiService } from '@/services/api-service';
-import type { DropdownCity, ForecastDay, WeatherCurrent } from '@/models';
+import type { DropdownCity, ForecastDay, SelectedCity, WeatherCurrent } from '@/models';
 import WeatherCardDataForecast from './weather-card-data-forecast.vue';
 import WeatherCardDataCurrent from './weather-card-data-current.vue';
 import WeatherCardCurrentChart from '@/components/weather-card/weather-card-current-chart.vue';
 import WeatherCardForecastChart from '@/components/weather-card/weather-card-forecast-chart.vue';
-import AppModal from '../app-modal.vue';
-
-interface SelectedCity {
-  lat: number;
-  lon: number;
-}
+import { useHomeCardsStore, type WeatherCardInterface } from '@/stores/home-cards';
 
 const value = ref('');
-const selectedRegime = ref<'day' | 'week'>('day');
 const isDropdownOpened = ref(false);
 const cities = ref<DropdownCity[] | null>(null);
 const isSearching = ref(false);
 const isWeatherLoading = ref(false);
 const emptyCities = ref(false);
-const selectedCity = ref<SelectedCity | null>(null);
-const currentWeather = ref<WeatherCurrent | null>(null);
-const forecastWeather = ref<ForecastDay[][] | null>(null);
-// const errors = ref(null);
+
+interface Props {
+  data: WeatherCardInterface,
+}
+
+const props = defineProps<Props>();
+const emit = defineEmits(['remove']);
+
+const store = useHomeCardsStore();
+
+const selectedRegime = computed(() => props.data.selectedRegime);
+const selectedCity = computed(() => props.data.selectedCity);
+const currentWeather = computed(() => props.data.currentWeather);
+const forecastWeather = computed(() => props.data.forecastWeather); 
 
 watch(value, (newVal: string) => {
   if (newVal.trim()) {
@@ -121,8 +126,8 @@ const searchWeather = async () => {
 };
 
 const populateWeatherData = (current: WeatherCurrent, forecast: ForecastDay[][]) => {
-  currentWeather.value = current;
-  forecastWeather.value = forecast;
+  store.setCurrentWeather(props.data.id, current);
+  store.setForecastWeather(props.data.id, forecast);
 };
 
 const handleSearchCurrent = async () => {
@@ -138,7 +143,7 @@ const handleSearchForecast = async () => {
 };
 
 const handleRegimeClick = (value: 'day' | 'week') => {
-  selectedRegime.value = value;
+  store.setSelectedRegime(props.data.id, value);
   closeDropdown();
 };
 
@@ -148,11 +153,15 @@ const debounceValueChange = debounce((newVal: string) => {
 }, 1000);
 
 const handleCityClick = (lat: number, lon: number) => {
-  selectedCity.value = { lat, lon };
+  store.setSelectedCity(props.data.id, { lat, lon });
   closeDropdown();
   resetInput();
+};
 
-  console.log('select: ', lat + ' ' + lon);
+const handleRemoveCard = () => {
+  if (props.data.id) {
+    emit('remove', props.data.id);
+  }
 };
 
 const resetInput = () => (value.value = '');
@@ -160,7 +169,7 @@ const closeDropdown = () => (isDropdownOpened.value = false);
 
 const handleSearchCities = async (newVal: string) => {
   isSearching.value = true;
-  selectedCity.value = null;
+  store.setSelectedCity(props.data.id, null);
 
   const data = await apiService.getCities(newVal);
   cities.value = data;
