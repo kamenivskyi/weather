@@ -1,5 +1,5 @@
 <template>
-  <canvas ref="canvas2Ref"></canvas>
+  <canvas ref="canvasRef"></canvas>
 </template>
 
 <script setup lang="ts">
@@ -12,11 +12,11 @@ import { lineChartOptions } from '@/constants';
 
 interface Props {
   data: ForecastDay[][] | null;
-}
+};
 
 const props = defineProps<Props>();
 
-const canvas2Ref = ref<VNodeRef | null>(null);
+const canvasRef = ref<VNodeRef | null>(null);
 const chart = ref<any>(null);
 
 const averageTemperatures = computed(() => {
@@ -39,7 +39,7 @@ const daysOfWeek = computed(() => {
 });
 
 const canGenerateChart = computed(
-  () => canvas2Ref.value && daysOfWeek.value?.length > 0 && averageTemperatures.value?.length > 0
+  () => canvasRef.value && daysOfWeek.value?.length > 0 && averageTemperatures.value?.length > 0
 );
 
 const getDayOfWeek = (timestamp: number) => {
@@ -67,7 +67,7 @@ function initChart() {
   }
 
   if (canGenerateChart.value) {
-    const chartCtx = canvas2Ref.value.getContext('2d');
+    const chartCtx = canvasRef.value.getContext('2d');
 
     chart.value = new Chart(chartCtx, {
       type: 'line',
