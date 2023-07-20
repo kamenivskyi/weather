@@ -10,7 +10,7 @@
       </AppButtonVue>
 
       <div class="c-slider">
-        <WeatherCard v-for="item in activeCards" />
+        <WeatherCard v-for="num in activeCards" :key="num" />
       </div>
     </div>
   </main>
@@ -22,11 +22,12 @@ import AppButtonVue from '@/components/app-button.vue';
 import WeatherCard from '@/components/weather-card/weather-card.vue';
 
 const activeCards = ref([1]);
+const MAX_ALLOWED_BLOCKS = 5;
 
-const allowAdd = computed(() => activeCards.value.length <= 4);
+const allowToAdd = computed(() => activeCards.value.length < MAX_ALLOWED_BLOCKS);
 
 const handleAddNewCard = () => {
-  if (allowAdd.value) {
+  if (allowToAdd.value) {
     incrementValue();
   }
   else {
