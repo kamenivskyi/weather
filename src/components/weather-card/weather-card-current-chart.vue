@@ -34,7 +34,6 @@ watch(
 );
 
 function initChart() {
-  console.log('props: ', props);
   if (chart.value) {
     chart.value.destroy();
   }

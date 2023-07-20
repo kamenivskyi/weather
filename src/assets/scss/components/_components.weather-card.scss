@@ -1,6 +1,8 @@
 .c-weather-card {
   max-width: 600px;
   margin: 0 auto;
+  padding-left: 15px;
+  padding-right: 15px;
 
   &__header {
     display: flex;
@@ -51,5 +53,17 @@
 
   &__data-item {
     margin-bottom: 10px;
+  }
+
+  @media (min-width: 600px) {
+    & {
+      min-width: 400px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    & {
+      min-width: 600px;
+    }
   }
 }
