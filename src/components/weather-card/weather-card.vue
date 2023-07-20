@@ -2,6 +2,11 @@
   <div class="c-weather-card">
     <div class="c-weather-card__header">
       <div class="c-weather-card__search-panel">
+        <div class="u-row u-mb-3">
+          <AppButton @click="handleAddToChosen" variant="primary" pill>Add to chosen</AppButton>
+          <AppButton @click="handleRemoveCard" variant="danger" pill class="u-ml-20">Remove block</AppButton>
+        </div>
+        
         <input v-model="value" class="c-input" type="search" placeholder="Search" />
 
         <AppSpinner v-if="isSearching" />
@@ -18,8 +23,7 @@
           </AppButton>
         </div>
       </div>
-      <AppButton variant="primary" pill>Add to chosen</AppButton>
-      <AppButton @click="handleRemoveCard" variant="danger" pill>Remove block</AppButton>
+      
     </div>
     <div class="c-weather-card__tabs">
       <AppButton
@@ -73,6 +77,7 @@ import WeatherCardDataCurrent from './weather-card-data-current.vue';
 import WeatherCardCurrentChart from '@/components/weather-card/weather-card-current-chart.vue';
 import WeatherCardForecastChart from '@/components/weather-card/weather-card-forecast-chart.vue';
 import { useHomeCardsStore, type WeatherCardInterface } from '@/stores/home-cards';
+import { useChosenStore, type ChosenCity } from '@/stores/chosen';
 
 const value = ref('');
 const isDropdownOpened = ref(false);
@@ -88,7 +93,8 @@ interface Props {
 const props = defineProps<Props>();
 const emit = defineEmits(['remove']);
 
-const store = useHomeCardsStore();
+const homeStore = useHomeCardsStore();
+const chosenStore = useChosenStore();
 
 const selectedRegime = computed(() => props.data.selectedRegime);
 const selectedCity = computed(() => props.data.selectedCity);
@@ -126,8 +132,8 @@ const searchWeather = async () => {
 };
 
 const populateWeatherData = (current: WeatherCurrent, forecast: ForecastDay[][]) => {
-  store.setCurrentWeather(props.data.id, current);
-  store.setForecastWeather(props.data.id, forecast);
+  homeStore.setCurrentWeather(props.data.id, current);
+  homeStore.setForecastWeather(props.data.id, forecast);
 };
 
 const handleSearchCurrent = async () => {
@@ -143,7 +149,7 @@ const handleSearchForecast = async () => {
 };
 
 const handleRegimeClick = (value: 'day' | 'week') => {
-  store.setSelectedRegime(props.data.id, value);
+  homeStore.setSelectedRegime(props.data.id, value);
   closeDropdown();
 };
 
@@ -153,7 +159,7 @@ const debounceValueChange = debounce((newVal: string) => {
 }, 1000);
 
 const handleCityClick = (lat: number, lon: number) => {
-  store.setSelectedCity(props.data.id, { lat, lon });
+  homeStore.setSelectedCity(props.data.id, { lat, lon });
   closeDropdown();
   resetInput();
 };
@@ -164,12 +170,23 @@ const handleRemoveCard = () => {
   }
 };
 
+const handleAddToChosen = () => {
+  console.log('chosenStore: ', chosenStore.chosenCities);
+  if (props.data.selectedCity) {
+    console.log('chose: ', props.data.selectedCity);
+    chosenStore.addChosenCity({ 
+      ...props.data.selectedCity,
+      id: props.data.id,
+    });
+  }
+}
+
 const resetInput = () => (value.value = '');
 const closeDropdown = () => (isDropdownOpened.value = false);
 
 const handleSearchCities = async (newVal: string) => {
   isSearching.value = true;
-  store.setSelectedCity(props.data.id, null);
+  homeStore.setSelectedCity(props.data.id, null);
 
   const data = await apiService.getCities(newVal);
   cities.value = data;

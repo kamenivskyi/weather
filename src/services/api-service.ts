@@ -63,6 +63,12 @@ export const apiService = {
     return res?.list ? transformService.transformForecastArray(res.list) : { list: [] };
   },
 
+  async getWeather(lat: number, lon: number) {
+    // apiService.getCurrent(lat, lon);
+    return Promise.all([this.getCurrent(lat, lon), this.getForecast(lat, lon)])
+
+  },
+
   getIconUrl(iconCode: string) {
     return `${this.IMAGE_PREFIX}/${iconCode}@2x.png`;
   }
