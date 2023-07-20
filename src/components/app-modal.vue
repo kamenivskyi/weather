@@ -18,16 +18,15 @@
 </template>
 
 <script setup lang="ts">
-import { Teleport, Transition, onMounted, onUnmounted, ref, watch } from 'vue'
+import { Teleport, Transition, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 import AppButton from '@/components/app-button.vue';
 
 interface Props {
-  isOpen?: boolean,
+  isOpen: boolean,
   title?: string,
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  isOpen: false,
   title: 'Message modal'
 });
 

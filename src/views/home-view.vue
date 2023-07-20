@@ -17,16 +17,31 @@
           @remove="handleRemoveCard"
         />
       </div>
-      <AppModal :isOpen="showModal" @close="onClose" title="Notification">
+      <AppModal :isOpen="showMaxBlocksModal" @close="onClose" title="Notification">
         <p class="u-mb-3">There can be a maximum of 5 blocks, remove some to add a new one!</p>
-        <AppButton @click="showModal = false">Close Modal</AppButton>
+        <AppButton @click="showMaxBlocksModal = false">Close Modal</AppButton>
+      </AppModal>
+
+      <AppModal :isOpen="showConfirmRemoveModal" @close="onCloseConfirmRemoveModal" title="Notification">
+        <p class="u-mb-3">Are you sure you want to remove this block?</p>
+        <div>
+          <AppButton @click="showConfirmRemoveModal = false">No, close modal</AppButton>
+          <AppButton @click="handleRemoveClick" variant="danger" pill class="u-ml-20">Yes, remove it</AppButton>
+        </div>
+      </AppModal>
+
+      <AppModal :isOpen="showCantRemoveModal" @close="onCloseShowCantRemoveModal" title="Notification">
+        <p class="u-mb-3">You can't remove the last block</p>
+        <div>
+          <AppButton @click="showCantRemoveModal = false">Ok</AppButton>
+        </div>
       </AppModal>
     </div>
   </main>
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref, computed, nextTick } from 'vue';
 import AppButton from '@/components/app-button.vue';
 import AppModal from '@/components/app-modal.vue';
 import WeatherCard from '@/components/weather-card/weather-card.vue';
@@ -35,12 +50,16 @@ import type { WeatherCardInterface } from '@/stores/home-cards';
 
 const store = useHomeCardsStore();
 
-const activeCards = ref([1]);
-const showModal = ref(false);
+const showMaxBlocksModal = ref(false);
+const showConfirmRemoveModal = ref(false);
+const showCantRemoveModal = ref(false);
+
+const removeCardId = ref<number | null>(null);
 
 const MAX_ALLOWED_BLOCKS = 5;
 
 const allowToAdd = computed(() => store.data.cards.length < MAX_ALLOWED_BLOCKS);
+const allowToRemove = computed(() => store.data.cards.length > 1);
 
 const handleAddNewCard = () => {
   if (allowToAdd.value) {
@@ -57,21 +76,54 @@ const handleAddNewCard = () => {
     store.addWeatherCard(newCard);
   }
   else {
-    showModal.value = true;
+    showMaxBlocksModal.value = true;
     console.log('no more allowed');
   }
 }
 
 const handleRemoveCard = (id: number) => {
-  store.removeWeatherCard(id);
+  console.log('remove: ', id);
+  console.log('allow?: ', allowToRemove.value);
+  if (allowToRemove.value) {
+    removeCardId.value = id;
+    showConfirmRemoveCard();
+  }
+  else {
+    console.log('no allowed')
+    showCantRemoveModal.value = true;
+    // nextTick(() => {
+    //   if (showCantRemoveModal.value === false) {
+    //   } 
+    // })
+  }
 };
 
-const onClose = (value: boolean) => {
-  console.log("ON CLOSED: ! ", value)
-  showModal.value = false;
+const showConfirmRemoveCard = () => {
+  console.log('show');
+  nextTick(() => {
+    showConfirmRemoveModal.value = true;
+  })
 }
 
-const incrementValue = () => {
-  activeCards.value.push(activeCards.value.length + 1);
+const handleRemoveClick = () => {
+  if (removeCardId.value) {
+    store.removeWeatherCard(removeCardId.value);
+
+    removeCardId.value = null;
+  }
+  showConfirmRemoveModal.value = false;
+  console.log('yes, remove it');
 }
+
+const onClose = (value: boolean) => {
+  showMaxBlocksModal.value = false;
+}
+const onCloseConfirmRemoveModal = (value: boolean) => {
+  showConfirmRemoveModal.value = false;
+}
+
+const onCloseShowCantRemoveModal = () => {
+  showCantRemoveModal.value = false;
+}
+
 </script>
