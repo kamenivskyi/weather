@@ -1,0 +1,43 @@
+<template>
+  <div class="chosen">
+    <div class="container">
+      <template v-if="hasChosenCities">
+        <div class="c-slider">
+          <ChosenWeatherCard
+            v-for="item in cities"
+            :current="item.current"
+            :forecast="item.forecast"
+            :lat="item.lat"
+            :lon="item.lon"
+            :id="item.id"
+            :key="item.id"
+            @removeChoosen="handleRemoveChoosen"
+          />
+        </div>
+      </template>
+      <template v-if="!hasChosenCities">
+        <p>No chosen cities yet</p>
+      </template>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import ChosenWeatherCard from '@/components/chosen-weather-card/chosen-weather-card.vue';
+import { useChosenStore } from '@/stores/chosen';
+import { computed } from 'vue';
+
+const chosenStore = useChosenStore();
+
+const cities = computed(() => chosenStore.chosenCities);
+const hasChosenCities = computed(() => cities.value.length > 0);
+
+const handleRemoveChoosen = (id: number) => {
+  if (id) {
+    console.log('id: ', id);
+    chosenStore.removeChosenCity(id);
+  }
+};
+</script>
+
+<style></style>

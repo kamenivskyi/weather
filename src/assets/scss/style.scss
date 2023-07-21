@@ -1,7 +1,9 @@
-@import "settings/settings";
+@import 'settings/settings';
 
-@import "components/components";
+@import 'molecules/molecules';
 
-@import "organisms/organisms";
+@import 'components/components';
 
-@import "utilities/utilities";
+@import 'organisms/organisms';
+
+@import 'utilities/utilities';

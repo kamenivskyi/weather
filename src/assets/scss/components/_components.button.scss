@@ -1,0 +1,75 @@
+$shadow-hover: rgba(41, 56, 221, 0.125);
+
+.c-button {
+  position: relative;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  overflow: hidden;
+
+  &--primary {
+    background-color: $primary;
+    color: $light;
+
+    &::before {
+      background-color: $primary-200 !important;
+    }
+  }
+
+  &--light {
+    background-color: $light;
+    color: $dark;
+
+    &::before {
+      background-color: $light-200 !important;
+    }
+  }
+
+  &--danger {
+    background-color: $danger;
+    color: $dark;
+
+    &::before {
+      background-color: $danger-200 !important;
+    }
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    transform: translateX(-100%);
+    z-index: 1;
+    transition: transform 0.3s ease;
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: default;
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 4px $shadow-hover;
+  }
+
+  &:hover {
+    &::before {
+      transform: translateX(0);
+    }
+  }
+  &:active {
+    box-shadow: 0 0 0 4px $shadow-hover;
+  }
+
+  &--pill {
+    border-radius: 20px;
+  }
+
+  &__text {
+    position: relative;
+    z-index: 2;
+  }
+}

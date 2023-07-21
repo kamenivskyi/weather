@@ -1,0 +1,53 @@
+.u-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.u-d-flex {
+  display: flex;
+}
+
+.u-w-100 {
+  width: 100%;
+}
+
+.u-space-between {
+  justify-content: space-between;
+}
+
+.u-align-items-center {
+  align-items: center;
+}
+
+.u-mb-3 {
+  margin-bottom: 20px;
+}
+
+.u-bg--primary {
+  background-color: $primary !important;
+}
+
+.u-color--light {
+  color: $light !important;
+}
+
+.u-px-15 {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.u-ml-20 {
+  margin-left: 20px;
+}
+
+.u-mr-20 {
+  margin-right: 20px;
+}
+
+.u-ml-auto {
+  margin-left: auto;
+}
+
+.u-mr-auto {
+  margin-right: auto;
+}
