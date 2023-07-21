@@ -1,6 +1,7 @@
 .o-header {
   padding: 15px 0;
-  background-color: $primary;
+  background-color: $light-200;
+  color: $dark;
   margin-bottom: 20px;
 
   &__inner {
@@ -10,7 +11,7 @@
   }
 
   &__logo {
-    color: $light;
+    color: $dark;
     text-decoration: none;
     font-size: 20px;
   }

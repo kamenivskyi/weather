@@ -3,8 +3,20 @@
   flex-direction: row;
 }
 
+.u-d-flex {
+  display: flex;
+}
+
+.u-w-100 {
+  width: 100%;
+}
+
 .u-space-between {
   justify-content: space-between;
+}
+
+.u-align-items-center {
+  align-items: center;
 }
 
 .u-mb-3 {

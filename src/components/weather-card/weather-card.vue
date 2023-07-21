@@ -176,6 +176,8 @@ const handleAddToChosen = () => {
     console.log('chose: ', props.data.selectedCity);
     chosenStore.addChosenCity({ 
       ...props.data.selectedCity,
+      current: props.data.currentWeather,
+      forecast: props.data.forecastWeather,
       id: props.data.id,
     });
   }

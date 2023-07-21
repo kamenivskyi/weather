@@ -2,6 +2,9 @@
   max-width: 600px;
   margin: 0 auto;
   padding: 20px 15px;
+  margin: 20px;
+  background-color: $light;
+  border-radius: $border-radius-sm;
 
   &__header {
     display: flex;
