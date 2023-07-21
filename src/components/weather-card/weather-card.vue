@@ -3,11 +3,33 @@
     <div class="c-weather-card__header">
       <div class="c-weather-card__search-panel">
         <div class="u-row u-mb-3">
-          <AppButton @click="handleAddToChosen" variant="primary" pill>Add to chosen</AppButton>
-          <AppButton @click="handleRemoveCard" variant="danger" pill class="u-ml-20">Remove block</AppButton>
+          <AppButton 
+            v-if="isChosen"
+            @click="handleRemoveFromChosen" 
+            variant="warning" 
+            pill
+          >
+            Remove from chosen
+          </AppButton>
+          <AppButton
+            v-else-if="hasData"
+            @click="handleAddToChosen" 
+            variant="primary" 
+            pill
+          >
+            Add to chosen
+          </AppButton>
+          <AppButton 
+            @click="handleRemoveCard" 
+            variant="danger"
+            pill 
+            class="u-ml-20"
+          >
+            Remove block
+          </AppButton>
         </div>
         
-        <input v-model="value" class="c-input" type="search" placeholder="Search" />
+        <input v-if="!hasData" v-model="value" class="c-input" type="search" placeholder="Search" />
 
         <AppSpinner v-if="isSearching" />
 
@@ -44,7 +66,7 @@
       </AppButton>
     </div>
 
-    <AppSpinner v-if="isWeatherLoading" />
+    <AppSpinner v-if="isWeatherLoading || isLoadingByIp" />
 
     <template v-else>
       <template v-if="selectedRegime === 'day'">
@@ -88,6 +110,7 @@ const emptyCities = ref(false);
 
 interface Props {
   data: WeatherCardInterface,
+  isLoadingByIp: boolean
 }
 
 const props = defineProps<Props>();
@@ -100,6 +123,8 @@ const selectedRegime = computed(() => props.data.selectedRegime);
 const selectedCity = computed(() => props.data.selectedCity);
 const currentWeather = computed(() => props.data.currentWeather);
 const forecastWeather = computed(() => props.data.forecastWeather); 
+const isChosen = computed(() => chosenStore.isCityChosen(props.data.id));
+const hasData = computed(() => currentWeather.value && forecastWeather.value);
 
 watch(value, (newVal: string) => {
   if (newVal.trim()) {
@@ -171,7 +196,6 @@ const handleRemoveCard = () => {
 };
 
 const handleAddToChosen = () => {
-  console.log('chosenStore: ', chosenStore.chosenCities);
   if (props.data.selectedCity) {
     console.log('chose: ', props.data.selectedCity);
     chosenStore.addChosenCity({ 
@@ -180,6 +204,12 @@ const handleAddToChosen = () => {
       forecast: props.data.forecastWeather,
       id: props.data.id,
     });
+  }
+}
+
+const handleRemoveFromChosen = () => {
+  if (props.data.id) {
+    chosenStore.removeChosenCity(props.data.id)
   }
 }
 

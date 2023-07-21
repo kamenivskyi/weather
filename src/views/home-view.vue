@@ -12,7 +12,8 @@
       <div class="c-slider">
         <WeatherCard 
           v-for="item in store.data.cards" 
-          :data="item" 
+          :data="item"
+          :isLoadingByIp="isLoadingByIp"
           :key="item.id" 
           @remove="handleRemoveCard"
         />
@@ -41,25 +42,54 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, nextTick } from 'vue';
+import { ref, computed, nextTick, onMounted } from 'vue';
 import AppButton from '@/components/app-button.vue';
 import AppModal from '@/components/app-modal.vue';
 import WeatherCard from '@/components/weather-card/weather-card.vue';
 import { useHomeCardsStore } from '@/stores/home-cards';
 import type { WeatherCardInterface } from '@/stores/home-cards';
+import { getGeolocation } from '@/utils';
+import { apiService } from '@/services/api-service';
 
 const store = useHomeCardsStore();
 
 const showMaxBlocksModal = ref(false);
 const showConfirmRemoveModal = ref(false);
 const showCantRemoveModal = ref(false);
+const isLoadingByIp = ref(false);
 
 const removeCardId = ref<number | null>(null);
+
+onMounted(() => {
+  if (store.data.firstMount) {
+    handleCoordinates();
+  }
+});
 
 const MAX_ALLOWED_BLOCKS = 5;
 
 const allowToAdd = computed(() => store.data.cards.length < MAX_ALLOWED_BLOCKS);
 const allowToRemove = computed(() => store.data.cards.length > 1);
+
+const handleCoordinates = async () => {
+  if (store.data.cards.length === 1) {
+    try {
+      isLoadingByIp.value = true;
+      const coords = await getGeolocation();
+
+      store.setSelectedCity(store.data.cards[0].id, { lat: coords.latitude, lon: coords.longitude });
+      // const [current, forecast] = await apiService.getWeather(coords.latitude, coords.longitude);
+  
+      // store.setCurrentWeather(store.data.cards[0].id, current);
+      // store.setForecastWeather(store.data.cards[0].id, forecast);
+      store.setFirstMount(false);
+    } catch (error) {
+      console.log('error: ', error)
+    } finally {
+      isLoadingByIp.value = false;
+    }
+  }
+}
 
 const handleAddNewCard = () => {
   if (allowToAdd.value) {

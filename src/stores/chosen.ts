@@ -41,8 +41,8 @@ export const useChosenStore = defineStore('chosenStore', () => {
     }
   };
 
-  const isCityChosen = (city: ChosenCity) => {
-    return data.value.chosenCities.some((chosenCity) => chosenCity.id === city.id);
+  const isCityChosen = (id: number) => {
+    return data.value.chosenCities.some((chosenCity) => chosenCity.id === id);
   };
 
   const chosenCities = computed(() => data.value.chosenCities);
@@ -50,6 +50,7 @@ export const useChosenStore = defineStore('chosenStore', () => {
   return {
     addChosenCity,
     removeChosenCity,
+    isCityChosen,
     chosenCities,
   }
 });

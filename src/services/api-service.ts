@@ -66,7 +66,6 @@ export const apiService = {
   async getWeather(lat: number, lon: number) {
     // apiService.getCurrent(lat, lon);
     return Promise.all([this.getCurrent(lat, lon), this.getForecast(lat, lon)])
-
   },
 
   getIconUrl(iconCode: string) {
