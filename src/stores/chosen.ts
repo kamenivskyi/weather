@@ -8,12 +8,10 @@ export interface ChosenCity {
   lon: number;
   current: WeatherCurrent | null;
   forecast: ForecastDay[][] | null;
-  // label: string;
 }
 
 const CHOSEN_LOCAL_STORAGE_KEY = 'weatherAppChosen';
 
-// need to use pinia-plugin-persistedstate
 export const useChosenStore = defineStore('chosenStore', () => {
   const data = ref({
     chosenCities: [] as ChosenCity[]

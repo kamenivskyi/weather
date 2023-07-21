@@ -26,9 +26,6 @@
       </div>
     </div>
 
-    <!-- <AppSpinner v-if="isWeatherLoading" /> -->
-
-    <!-- <template v-else> -->
     <template v-if="selectedRegime === 'day'">
       <WeatherCardDataCurrent v-if="current" :data="current" />
 
@@ -66,7 +63,6 @@ interface Props {
 }
 
 const selectedRegime = ref<'day' | 'week'>('day');
-// const currentWeather =
 
 const props = defineProps<Props>();
 const emit = defineEmits(['removeChoosen']);

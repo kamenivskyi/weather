@@ -61,12 +61,9 @@ import WeatherCard from '@/components/weather-card/weather-card.vue';
 import { useHomeCardsStore } from '@/stores/home-cards';
 import type { WeatherCardInterface } from '@/stores/home-cards';
 import { getGeolocation } from '@/utils';
-import { apiService } from '@/services/api-service';
 import i18n from '@/locales/i18n';
-// import { useI18n } from 'vue-i18n';
 
 const store = useHomeCardsStore();
-// const { t } = useI18n();
 
 const showMaxBlocksModal = ref(false);
 const showConfirmRemoveModal = ref(false);
@@ -102,10 +99,7 @@ const handleCoordinates = async () => {
         lat: coords.latitude,
         lon: coords.longitude
       });
-      // const [current, forecast] = await apiService.getWeather(coords.latitude, coords.longitude);
-
-      // store.setCurrentWeather(store.data.cards[0].id, current);
-      // store.setForecastWeather(store.data.cards[0].id, forecast);
+  
       store.setFirstMount(false);
     } catch (error) {
       console.log('error: ', error);
@@ -117,7 +111,6 @@ const handleCoordinates = async () => {
 
 const handleAddNewCard = () => {
   if (allowToAdd.value) {
-    // incrementValue();
 
     const newCard = {
       id: Math.random(),
@@ -135,23 +128,17 @@ const handleAddNewCard = () => {
 };
 
 const handleRemoveCard = (id: number) => {
-  console.log('remove: ', id);
-  console.log('allow?: ', allowToRemove.value);
+
   if (allowToRemove.value) {
     removeCardId.value = id;
     showConfirmRemoveCard();
   } else {
     console.log('no allowed');
     showCantRemoveModal.value = true;
-    // nextTick(() => {
-    //   if (showCantRemoveModal.value === false) {
-    //   }
-    // })
   }
 };
 
 const showConfirmRemoveCard = () => {
-  console.log('show');
   nextTick(() => {
     showConfirmRemoveModal.value = true;
   });
@@ -164,7 +151,6 @@ const handleRemoveClick = () => {
     removeCardId.value = null;
   }
   showConfirmRemoveModal.value = false;
-  console.log('yes, remove it');
 };
 
 const onClose = (value: boolean) => {

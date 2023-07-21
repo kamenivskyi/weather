@@ -3,18 +3,13 @@ import { messages } from '@/locales';
 import { useSettingsStore } from '@/stores/settings';
 import { WEATHER_SETTINGS_LANG_KEY } from '@/constants/local-storage-keys';
 
-// const store = useSettingsStore();
-
-// console.log('aaaaa: ', store.selectedLang)
-// setTimeout(() => {
   const i18n = createI18n({
     legasy: false,
     locale: window.localStorage.getItem(WEATHER_SETTINGS_LANG_KEY) 
-      ? JSON.parse(localStorage.getItem(WEATHER_SETTINGS_LANG_KEY) || 'en') 
+      ? JSON.parse(window.localStorage.getItem(WEATHER_SETTINGS_LANG_KEY) || 'en') 
       : 'en', // set locale
     fallbackLocale: 'ua', // set fallback locale
     messages,
   });
-// }, 1000)
 
 export default i18n;

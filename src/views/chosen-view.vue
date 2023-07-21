@@ -34,7 +34,6 @@ const hasChosenCities = computed(() => cities.value.length > 0);
 
 const handleRemoveChoosen = (id: number) => {
   if (id) {
-    console.log('id: ', id);
     chosenStore.removeChosenCity(id);
   }
 };
