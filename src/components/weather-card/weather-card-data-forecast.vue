@@ -1,5 +1,5 @@
 <template>
-  <div class="u-mb-3">Forecast for 5 days</div>
+  <div class="u-mb-3">{{ $t('chosenPage.title') }}</div>
   <template v-if="data && data.length > 0">
     <WeatherCardDataForecastDay v-for="item in data" :data="item" />
   </template>

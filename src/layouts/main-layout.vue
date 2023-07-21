@@ -2,8 +2,8 @@
   <TheHeader />
   <div class="container">
     <nav class="m-tabs">
-      <RouterLink to="/" class="m-tabs__item">Main</RouterLink>
-      <RouterLink to="/chosen" class="m-tabs__item">Chosen</RouterLink>
+      <RouterLink to="/" class="m-tabs__item">{{ $t('pageTabs.main') }}</RouterLink>
+      <RouterLink to="/chosen" class="m-tabs__item">{{ $t('pageTabs.chosen') }}</RouterLink>
     </nav>
   </div>
   <main class="main">

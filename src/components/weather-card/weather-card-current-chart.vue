@@ -15,6 +15,7 @@ import { onMounted, ref, watch } from 'vue';
 import type { VNodeRef } from 'vue';
 import Chart from 'chart.js/auto';
 import { lineChartOptions } from '@/constants';
+import i18n from '@/locales/i18n';
 
 const canvasRef = ref<VNodeRef | null>(null);
 const chart = ref<any>(null);
@@ -44,10 +45,14 @@ function initChart() {
     chart.value = new Chart(chartCtx, {
       type: 'line',
       data: {
-        labels: ['Min', 'Avg', 'Max'],
+        labels: [
+          i18n.global.t('chart.labels.minTemperature'), 
+          i18n.global.t('chart.labels.avgTemperature'), 
+          i18n.global.t('chart.labels.maxTemperature')
+        ],
         datasets: [
           {
-            label: 'Temperature',
+            label: i18n.global.t('chart.current.legend'),
             borderWidth: 2,
             data: [props.temperatureMin, props.tempereatureAvg, props.tempereatureMax]
           }

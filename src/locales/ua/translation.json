@@ -1,0 +1,62 @@
+{
+  "chosenPage": {
+    "title": "Прогноз на 5 днів",
+    "noCities": "Вибраних міст поки немає"
+  },
+  "notFound": "Нічого не знайдено",
+  "logo": "Погода",
+  "footer": "Футер",
+  "pageTabs": {
+    "main": "Головна",
+    "chosen": "Вибране"
+  },
+  "input": {
+    "placeholder": "Пошук міст"
+  },
+  "card": {
+    "current": "Зараз",
+    "addToChosen": "Добавити в вибране",
+    "removeFromChosen": "Видалити з вибраного",
+    "removeBlock": "Видалити блок",
+    "removeButton": "Видалити",
+    "tabs": {
+      "day": "День",
+      "week": "Тиждень"
+    },
+    "name": "Назва",
+    "description": "Опис",
+    "country": "Країна",
+    "timezone": "Часова зона",
+    "clouds": "Хмари",
+    "minTemperature": "Мінімальна температура",
+    "maxTemperature": "Максимальна температура",
+    "wind": "Вітер",
+    "pressure": "Тиск"
+  },
+  "modals": {
+    "titleDefault": "Сповіщення",
+    "max5blocksMessage": "Максимально може бути тільки 5 блоків, видаліть якийсь, щоб добавити новий!",
+    "cantRemoveLastBlock": "Ви не можете видалити останній блок!",
+    "closeModal": "Закрити вікно",
+    "confirmRemoveBlock": {
+      "message": "Ви впевнені, що хочете видалити даний блок?",
+      "no": "Ні, закрити вікно",
+      "yes": "Так, видалити це"
+    } 
+  },
+  "chart": {
+    "current": {
+      "legend": "Температура"
+    },
+    "forecast": {
+      "legend": "Середня температура по добі"
+    },
+    "labels": {
+      "minTemperature": "Мін",
+      "avgTemperature": "Середня",
+      "maxTemperature": "Макc"
+    }
+  },
+  "Home link": "Home",
+  "Random link": "Random"
+}
