@@ -1,7 +1,7 @@
 <template>
   <footer class="o-footer">
     <div class="container">
-      <div class="o-footer__inner">Footer</div>
+      <div class="o-footer__inner">{{ $t('footer') }}</div>
     </div>
   </footer>
 </template>

@@ -10,7 +10,7 @@
               'u-bg--primary': selectedRegime === 'day'
             }"
           >
-            Day
+            {{ $t('card.tabs.day') }}
           </AppButton>
           <AppButton
             @click="handleRegimeClick('week')"
@@ -18,7 +18,7 @@
               'u-bg--primary': selectedRegime === 'week'
             }"
           >
-            Week
+          {{ $t('card.tabs.week') }}
           </AppButton>
         </div>
 
@@ -71,14 +71,9 @@ const selectedRegime = ref<'day' | 'week'>('day');
 const props = defineProps<Props>();
 const emit = defineEmits(['removeChoosen']);
 
-onMounted(() => {
-  console.log('props: ', props);
-});
 
 const handleRegimeClick = (value: 'day' | 'week') => {
   selectedRegime.value = value;
-  // homeStore.setSelectedRegime(props.data.id, value);
-  // closeDropdown();
 };
 
 const handleRemoveClick = (id: number) => {

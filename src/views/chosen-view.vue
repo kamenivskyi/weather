@@ -16,7 +16,7 @@
         </div>
       </template>
       <template v-if="!hasChosenCities">
-        <p>No chosen cities yet</p>
+        <p>{{ $t('chosenPage.noCities') }}</p>
       </template>
     </div>
   </div>

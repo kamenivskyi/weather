@@ -4,21 +4,21 @@
       <div class="c-weather-card__search-panel">
         <div class="u-row u-mb-3">
           <AppButton v-if="isChosen" @click="handleRemoveFromChosen" variant="warning" pill>
-            Remove from chosen
+            {{ $t('card.removeFromChosen') }}
           </AppButton>
           <AppButton v-else-if="hasData" @click="handleAddToChosen" variant="primary" pill>
-            Add to chosen
+            {{ $t('card.addToChosen') }}
           </AppButton>
           <AppButton @click="handleRemoveCard" variant="danger" pill class="u-ml-20">
-            Remove block
+            {{ $t('card.removeBlock') }}
           </AppButton>
         </div>
 
-        <input v-if="!hasData" v-model="value" class="c-input" type="search" placeholder="Search" />
+        <input v-if="!hasData" v-model="value" class="c-input" type="search" :placeholder="$t('input.placeholder')" />
 
         <AppSpinner v-if="isSearching" />
 
-        <template v-else-if="emptyCities">Not found</template>
+        <template v-else-if="emptyCities">{{ $t('notFound') }}</template>
 
         <div v-else-if="isDropdownOpened" class="c-weather-card__dropdown">
           <AppButton
@@ -38,7 +38,7 @@
           'u-bg--primary': selectedRegime === 'day'
         }"
       >
-        Day
+        {{ $t('card.tabs.day') }}
       </AppButton>
       <AppButton
         @click="handleRegimeClick('week')"
@@ -46,7 +46,7 @@
           'u-bg--primary': selectedRegime === 'week'
         }"
       >
-        Week
+      {{ $t('card.tabs.week') }}
       </AppButton>
     </div>
 

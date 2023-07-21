@@ -1,0 +1,62 @@
+{
+  "chosenPage": {
+    "title": "Forecast for 5 days",
+    "noCities": "No chosen cities yet"
+  },
+  "notFound": "Not found",
+  "logo": "Weather",
+  "footer": "footer",
+  "pageTabs": {
+    "main": "Main",
+    "chosen": "Chosen"
+  },
+  "input": {
+    "placeholder": "Search"
+  },
+  "card": {
+    "current": "current",
+    "addToChosen": "Add to chosen",
+    "removeFromChosen": "Remove from chosen",
+    "removeBlock": "Remove block",
+    "removeButton": "Remove",
+    "tabs": {
+      "day": "Day",
+      "week": "Week"
+    },
+    "name": "Name",
+    "description": "Description",
+    "country": "Country",
+    "timezone": "Timezone",
+    "clouds": "Clouds",
+    "minTemperature": "Min temp",
+    "maxTemperature": "Max temp",
+    "wind": "Wind",
+    "pressure": "Pressure"
+  },
+  "modals": {
+    "titleDefault": "Notification",
+    "max5blocksMessage": "There can be a maximum of 5 blocks, remove some to add a new one!",
+    "cantRemoveLastBlock": "You can't remove the last block",
+    "closeModal": "Close modal",
+    "confirmRemoveBlock": {
+      "message": "Are you sure you want to remove this block?",
+      "no": "No, close modal",
+      "yes": "Yes, remove it"
+    } 
+  },
+  "chart": {
+    "current": {
+      "legend": "Temperature"
+    },
+    "forecast": {
+      "legend": "Average temperature by day"
+    },
+    "labels": {
+      "minTemperature": "Min",
+      "avgTemperature": "Avg",
+      "maxTemperature": "Max"
+    }
+  },
+  "Home link": "Home",
+  "Random link": "Random"
+}

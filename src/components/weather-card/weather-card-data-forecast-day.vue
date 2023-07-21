@@ -15,13 +15,13 @@
           {{ item.weather[0].description }}
         </div>
         <div v-if="item.wind.speed" class="c-weather-card__data-item">
-          wind: {{ item.wind.speed }}m/s
+          {{ $t('card.wind') }}: {{ item.wind.speed }}m/s
         </div>
         <div v-if="item.clouds.all" class="c-weather-card__data-item">
-          clouds: {{ item.clouds.all }}&#37;
+          {{ $t('card.clouds') }}: {{ item.clouds.all }}&#37;
         </div>
         <div v-if="item.main.pressure" class="c-weather-card__data-item">
-          Pressure: {{ item.main.pressure }} hpa
+          {{ $t('card.pressure') }}: {{ item.main.pressure }} hpa
         </div>
       </div>
     </div>
