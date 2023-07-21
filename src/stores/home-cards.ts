@@ -11,7 +11,7 @@ export interface WeatherCardInterface {
 }
 
 interface State {
-  weatherCards: WeatherCardInterface[],
+  weatherCards: WeatherCardInterface[];
 }
 
 export const useHomeCardsStore = defineStore('homeCards', () => {
@@ -22,12 +22,11 @@ export const useHomeCardsStore = defineStore('homeCards', () => {
         selectedRegime: 'day',
         selectedCity: null,
         currentWeather: null,
-        forecastWeather: null,
+        forecastWeather: null
       }
     ] as WeatherCardInterface[],
-    firstMount: true,
+    firstMount: true
   });
-  
 
   const addWeatherCard = (newCard: WeatherCardInterface) => {
     data.value.cards.push(newCard);
@@ -35,7 +34,7 @@ export const useHomeCardsStore = defineStore('homeCards', () => {
 
   const removeWeatherCard = (id: number) => {
     const index = data.value.cards.findIndex((card: WeatherCardInterface) => card.id === id);
-    
+
     if (index !== -1) {
       data.value.cards.splice(index, 1);
     }
@@ -47,7 +46,7 @@ export const useHomeCardsStore = defineStore('homeCards', () => {
       card.selectedRegime = regime;
     }
   };
-  
+
   const setCurrentWeather = (id: number, weather: WeatherCurrent | null) => {
     const card = data.value.cards.find((card: WeatherCardInterface) => card.id === id);
     if (card) {
@@ -69,7 +68,7 @@ export const useHomeCardsStore = defineStore('homeCards', () => {
     }
   };
 
-  const setFirstMount = (value: boolean) => data.value.firstMount = value;
+  const setFirstMount = (value: boolean) => (data.value.firstMount = value);
 
   return {
     addWeatherCard,
@@ -79,6 +78,6 @@ export const useHomeCardsStore = defineStore('homeCards', () => {
     setSelectedCity,
     setForecastWeather,
     setFirstMount,
-    data,
-  }
+    data
+  };
 });

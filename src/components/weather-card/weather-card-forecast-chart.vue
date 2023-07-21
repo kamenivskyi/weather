@@ -12,7 +12,7 @@ import { lineChartOptions } from '@/constants';
 
 interface Props {
   data: ForecastDay[][] | null;
-};
+}
 
 const props = defineProps<Props>();
 

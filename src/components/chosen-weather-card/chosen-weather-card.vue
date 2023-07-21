@@ -1,7 +1,6 @@
 <template>
   <div class="c-weather-card">
-    <div class="c-weather-card__header">  
-    </div>
+    <div class="c-weather-card__header"></div>
     <div class="u-row u-align-items-center">
       <div class="c-weather-card__tabs u-w-100 u-d-flex u-space-between">
         <div>
@@ -22,30 +21,29 @@
             Week
           </AppButton>
         </div>
-        
+
         <AppButton @click="handleRemoveClick(id)" variant="danger">Remove</AppButton>
       </div>
-  
     </div>
 
     <!-- <AppSpinner v-if="isWeatherLoading" /> -->
 
     <!-- <template v-else> -->
-      <template v-if="selectedRegime === 'day'">
-        <WeatherCardDataCurrent v-if="current" :data="current" />
+    <template v-if="selectedRegime === 'day'">
+      <WeatherCardDataCurrent v-if="current" :data="current" />
 
-        <WeatherCardCurrentChart
-          v-if="current"
-          :temperatureMin="current?.tempMin"
-          :tempereatureMax="current?.tempMax"
-          :tempereatureAvg="current?.temp"
-        />
-      </template>
+      <WeatherCardCurrentChart
+        v-if="current"
+        :temperatureMin="current?.tempMin"
+        :tempereatureMax="current?.tempMax"
+        :tempereatureAvg="current?.temp"
+      />
+    </template>
 
-      <template v-else-if="selectedRegime === 'week'">
-        <WeatherCardDataForecast v-if="forecast" :data="forecast" />
-        <WeatherCardForecastChart v-if="forecast" :data="forecast" />
-      </template>
+    <template v-else-if="selectedRegime === 'week'">
+      <WeatherCardDataForecast v-if="forecast" :data="forecast" />
+      <WeatherCardForecastChart v-if="forecast" :data="forecast" />
+    </template>
     <!-- </template> -->
   </div>
 </template>
@@ -60,22 +58,22 @@ import WeatherCardDataCurrent from '@/components/weather-card/weather-card-data-
 import AppButton from '@/components/app-button.vue';
 
 interface Props {
-  current: WeatherCurrent | null
-  forecast: ForecastDay[][] | null
-  lat: number
-  lon: number
-  id: number
+  current: WeatherCurrent | null;
+  forecast: ForecastDay[][] | null;
+  lat: number;
+  lon: number;
+  id: number;
 }
 
 const selectedRegime = ref<'day' | 'week'>('day');
-// const currentWeather = 
+// const currentWeather =
 
 const props = defineProps<Props>();
 const emit = defineEmits(['removeChoosen']);
 
 onMounted(() => {
   console.log('props: ', props);
-})
+});
 
 const handleRegimeClick = (value: 'day' | 'week') => {
   selectedRegime.value = value;
@@ -85,6 +83,5 @@ const handleRegimeClick = (value: 'day' | 'week') => {
 
 const handleRemoveClick = (id: number) => {
   emit('removeChoosen', id);
-}
-
+};
 </script>

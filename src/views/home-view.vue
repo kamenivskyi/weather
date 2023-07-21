@@ -1,20 +1,14 @@
 <template>
   <main>
     <div class="container">
-      <AppButton 
-        @click="handleAddNewCard" 
-        variant="danger" 
-        pill
-      >
-        +
-      </AppButton>
+      <AppButton @click="handleAddNewCard" variant="danger" pill> + </AppButton>
 
       <div class="c-slider">
-        <WeatherCard 
-          v-for="item in store.data.cards" 
+        <WeatherCard
+          v-for="item in store.data.cards"
           :data="item"
           :isLoadingByIp="isLoadingByIp"
-          :key="item.id" 
+          :key="item.id"
           @remove="handleRemoveCard"
         />
       </div>
@@ -23,15 +17,25 @@
         <AppButton @click="showMaxBlocksModal = false">Close Modal</AppButton>
       </AppModal>
 
-      <AppModal :isOpen="showConfirmRemoveModal" @close="onCloseConfirmRemoveModal" title="Notification">
+      <AppModal
+        :isOpen="showConfirmRemoveModal"
+        @close="onCloseConfirmRemoveModal"
+        title="Notification"
+      >
         <p class="u-mb-3">Are you sure you want to remove this block?</p>
         <div>
           <AppButton @click="showConfirmRemoveModal = false">No, close modal</AppButton>
-          <AppButton @click="handleRemoveClick" variant="danger" pill class="u-ml-20">Yes, remove it</AppButton>
+          <AppButton @click="handleRemoveClick" variant="danger" pill class="u-ml-20"
+            >Yes, remove it</AppButton
+          >
         </div>
       </AppModal>
 
-      <AppModal :isOpen="showCantRemoveModal" @close="onCloseShowCantRemoveModal" title="Notification">
+      <AppModal
+        :isOpen="showCantRemoveModal"
+        @close="onCloseShowCantRemoveModal"
+        title="Notification"
+      >
         <p class="u-mb-3">You can't remove the last block</p>
         <div>
           <AppButton @click="showCantRemoveModal = false">Ok</AppButton>
@@ -77,19 +81,22 @@ const handleCoordinates = async () => {
       isLoadingByIp.value = true;
       const coords = await getGeolocation();
 
-      store.setSelectedCity(store.data.cards[0].id, { lat: coords.latitude, lon: coords.longitude });
+      store.setSelectedCity(store.data.cards[0].id, {
+        lat: coords.latitude,
+        lon: coords.longitude
+      });
       // const [current, forecast] = await apiService.getWeather(coords.latitude, coords.longitude);
-  
+
       // store.setCurrentWeather(store.data.cards[0].id, current);
       // store.setForecastWeather(store.data.cards[0].id, forecast);
       store.setFirstMount(false);
     } catch (error) {
-      console.log('error: ', error)
+      console.log('error: ', error);
     } finally {
       isLoadingByIp.value = false;
     }
   }
-}
+};
 
 const handleAddNewCard = () => {
   if (allowToAdd.value) {
@@ -100,16 +107,15 @@ const handleAddNewCard = () => {
       selectedRegime: 'day',
       selectedCity: null,
       currentWeather: null,
-      forecastWeather: null,
+      forecastWeather: null
     } as WeatherCardInterface;
 
     store.addWeatherCard(newCard);
-  }
-  else {
+  } else {
     showMaxBlocksModal.value = true;
     console.log('no more allowed');
   }
-}
+};
 
 const handleRemoveCard = (id: number) => {
   console.log('remove: ', id);
@@ -117,13 +123,12 @@ const handleRemoveCard = (id: number) => {
   if (allowToRemove.value) {
     removeCardId.value = id;
     showConfirmRemoveCard();
-  }
-  else {
-    console.log('no allowed')
+  } else {
+    console.log('no allowed');
     showCantRemoveModal.value = true;
     // nextTick(() => {
     //   if (showCantRemoveModal.value === false) {
-    //   } 
+    //   }
     // })
   }
 };
@@ -132,8 +137,8 @@ const showConfirmRemoveCard = () => {
   console.log('show');
   nextTick(() => {
     showConfirmRemoveModal.value = true;
-  })
-}
+  });
+};
 
 const handleRemoveClick = () => {
   if (removeCardId.value) {
@@ -143,17 +148,16 @@ const handleRemoveClick = () => {
   }
   showConfirmRemoveModal.value = false;
   console.log('yes, remove it');
-}
+};
 
 const onClose = (value: boolean) => {
   showMaxBlocksModal.value = false;
-}
+};
 const onCloseConfirmRemoveModal = (value: boolean) => {
   showConfirmRemoveModal.value = false;
-}
+};
 
 const onCloseShowCantRemoveModal = () => {
   showCantRemoveModal.value = false;
-}
-
+};
 </script>

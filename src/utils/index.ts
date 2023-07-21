@@ -2,8 +2,8 @@ import type { ForecastDay } from '@/models';
 import { addDays, isSameDay, getDay } from 'date-fns';
 
 interface GeolocationCoords {
-  latitude: number, 
-  longitude: number
+  latitude: number;
+  longitude: number;
 }
 
 export const sortByEachDay = (data: ForecastDay[]) => {
@@ -29,7 +29,7 @@ export const getGeolocation = (): Promise<GeolocationCoords> => {
         (position) => {
           resolve({
             latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
+            longitude: position.coords.longitude
           });
         },
         (error) => {
@@ -41,7 +41,6 @@ export const getGeolocation = (): Promise<GeolocationCoords> => {
     }
   });
 };
-
 
 export const convertToTime = (value: number) => {
   console.log('convertTime val: ', value);

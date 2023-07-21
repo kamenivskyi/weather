@@ -18,12 +18,12 @@
 </template>
 
 <script setup lang="ts">
-import { Teleport, Transition, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
+import { Teleport, Transition, nextTick, onMounted, onUnmounted, ref, watch } from 'vue';
 import AppButton from '@/components/app-button.vue';
 
 interface Props {
-  isOpen: boolean,
-  title?: string,
+  isOpen: boolean;
+  title?: string;
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -35,16 +35,20 @@ const emit = defineEmits(['close']);
 const showModal = ref(false);
 
 onMounted(() => {
-  window.addEventListener('keydown', handleKeyDown)
+  window.addEventListener('keydown', handleKeyDown);
 });
 
 onUnmounted(() => {
-  window.removeEventListener('keydown', handleKeyDown)
+  window.removeEventListener('keydown', handleKeyDown);
 });
 
-watch(() => props.isOpen, (newValue) => {
-  showModal.value = newValue;
-}, { deep: true });
+watch(
+  () => props.isOpen,
+  (newValue) => {
+    showModal.value = newValue;
+  },
+  { deep: true }
+);
 
 const closeModal = () => {
   showModal.value = false;
@@ -55,8 +59,7 @@ const handleKeyDown = (e: KeyboardEvent) => {
   if (showModal.value && e.key === 'Escape') {
     closeModal();
   }
-}
-
+};
 </script>
 
 <style scoped></style>

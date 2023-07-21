@@ -3,32 +3,17 @@
     <div class="c-weather-card__header">
       <div class="c-weather-card__search-panel">
         <div class="u-row u-mb-3">
-          <AppButton 
-            v-if="isChosen"
-            @click="handleRemoveFromChosen" 
-            variant="warning" 
-            pill
-          >
+          <AppButton v-if="isChosen" @click="handleRemoveFromChosen" variant="warning" pill>
             Remove from chosen
           </AppButton>
-          <AppButton
-            v-else-if="hasData"
-            @click="handleAddToChosen" 
-            variant="primary" 
-            pill
-          >
+          <AppButton v-else-if="hasData" @click="handleAddToChosen" variant="primary" pill>
             Add to chosen
           </AppButton>
-          <AppButton 
-            @click="handleRemoveCard" 
-            variant="danger"
-            pill 
-            class="u-ml-20"
-          >
+          <AppButton @click="handleRemoveCard" variant="danger" pill class="u-ml-20">
             Remove block
           </AppButton>
         </div>
-        
+
         <input v-if="!hasData" v-model="value" class="c-input" type="search" placeholder="Search" />
 
         <AppSpinner v-if="isSearching" />
@@ -45,7 +30,6 @@
           </AppButton>
         </div>
       </div>
-      
     </div>
     <div class="c-weather-card__tabs">
       <AppButton
@@ -109,8 +93,8 @@ const isWeatherLoading = ref(false);
 const emptyCities = ref(false);
 
 interface Props {
-  data: WeatherCardInterface,
-  isLoadingByIp: boolean
+  data: WeatherCardInterface;
+  isLoadingByIp: boolean;
 }
 
 const props = defineProps<Props>();
@@ -122,7 +106,7 @@ const chosenStore = useChosenStore();
 const selectedRegime = computed(() => props.data.selectedRegime);
 const selectedCity = computed(() => props.data.selectedCity);
 const currentWeather = computed(() => props.data.currentWeather);
-const forecastWeather = computed(() => props.data.forecastWeather); 
+const forecastWeather = computed(() => props.data.forecastWeather);
 const isChosen = computed(() => chosenStore.isCityChosen(props.data.id));
 const hasData = computed(() => currentWeather.value && forecastWeather.value);
 
@@ -198,20 +182,20 @@ const handleRemoveCard = () => {
 const handleAddToChosen = () => {
   if (props.data.selectedCity) {
     console.log('chose: ', props.data.selectedCity);
-    chosenStore.addChosenCity({ 
+    chosenStore.addChosenCity({
       ...props.data.selectedCity,
       current: props.data.currentWeather,
       forecast: props.data.forecastWeather,
-      id: props.data.id,
+      id: props.data.id
     });
   }
-}
+};
 
 const handleRemoveFromChosen = () => {
   if (props.data.id) {
-    chosenStore.removeChosenCity(props.data.id)
+    chosenStore.removeChosenCity(props.data.id);
   }
-}
+};
 
 const resetInput = () => (value.value = '');
 const closeDropdown = () => (isDropdownOpened.value = false);
