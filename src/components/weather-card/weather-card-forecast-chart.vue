@@ -4,7 +4,8 @@
 
 <script setup lang="ts">
 import { computed, onMounted, ref, watch } from 'vue';
-import { format } from 'date-fns';
+import format from 'date-fns/format';
+import fromUnixTime from 'date-fns/fromUnixTime';
 import type { VNodeRef } from 'vue';
 import Chart from 'chart.js/auto';
 import type { ForecastDay } from '@/models';
@@ -12,6 +13,7 @@ import { lineChartOptions } from '@/constants';
 import { useI18n } from 'vue-i18n';
 import { enGB, uk } from 'date-fns/locale';
 import { useSettingsStore } from '@/stores/settings';
+import { addMinutes } from 'date-fns';
 
 interface Props {
   data: ForecastDay[][] | null;
@@ -48,8 +50,13 @@ const canGenerateChart = computed(
 );
 
 const getDayOfWeek = (timestamp: number) => {
-  const date = new Date(timestamp * 1000);
-  return format(date, 'EEEE', { locale: settings.selectedLang === 'ua' ? uk : enGB });
+  const date = fromUnixTime(timestamp);
+  
+  return format(
+    addMinutes(date, date.getTimezoneOffset()), 
+    'EEEE', 
+    { locale: settings.selectedLang === 'ua' ? uk : enGB }
+  );
 };
 
 onMounted(() => {
