@@ -61,7 +61,6 @@ import WeatherCard from '@/components/weather-card/weather-card.vue';
 import { useHomeCardsStore } from '@/stores/home-cards';
 import type { WeatherCardInterface } from '@/stores/home-cards';
 import { getGeolocation } from '@/utils';
-import i18n from '@/locales/i18n';
 import { useI18n } from 'vue-i18n';
 
 const store = useHomeCardsStore();
@@ -73,8 +72,6 @@ const showCantRemoveModal = ref(false);
 const isLoadingByIp = ref(false);
 
 const removeCardId = ref<number | null>(null);
-
-const selectedLocale = ref('en');
 
 onMounted(() => {
   if (store.data.firstMount) {

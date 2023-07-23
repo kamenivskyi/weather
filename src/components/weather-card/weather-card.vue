@@ -14,7 +14,13 @@
           </AppButton>
         </div>
 
-        <input v-if="!hasData" v-model="value" class="c-input" type="search" :placeholder="t('input.placeholder')" />
+        <input 
+          v-if="!hasData"
+          v-model="value" 
+          class="c-input" 
+          type="search" 
+          :placeholder="t('input.placeholder')" 
+        />
 
         <AppSpinner v-if="isSearching" />
 

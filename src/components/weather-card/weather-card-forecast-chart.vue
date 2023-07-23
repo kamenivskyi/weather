@@ -10,6 +10,8 @@ import Chart from 'chart.js/auto';
 import type { ForecastDay } from '@/models';
 import { lineChartOptions } from '@/constants';
 import { useI18n } from 'vue-i18n';
+import { enGB, uk } from 'date-fns/locale';
+import { useSettingsStore } from '@/stores/settings';
 
 interface Props {
   data: ForecastDay[][] | null;
@@ -17,6 +19,7 @@ interface Props {
 
 const props = defineProps<Props>();
 const { t } = useI18n();
+const settings = useSettingsStore();
 
 const canvasRef = ref<VNodeRef | null>(null);
 const chart = ref<any>(null);
@@ -46,7 +49,7 @@ const canGenerateChart = computed(
 
 const getDayOfWeek = (timestamp: number) => {
   const date = new Date(timestamp * 1000);
-  return format(date, 'EEEE');
+  return format(date, 'EEEE', { locale: settings.selectedLang === 'ua' ? uk : enGB });
 };
 
 onMounted(() => {
