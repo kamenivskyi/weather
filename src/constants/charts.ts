@@ -1,9 +1,11 @@
-export const lineChartOptions = {
+import { type ScaleChartOptions } from 'chart.js';
+
+export const lineChartOptions: ScaleChartOptions<'line'> | any = {
   responsive: true,
   scales: {
     x: {
       grid: {
-        display: true
+        display: false
       }
     },
     y: {

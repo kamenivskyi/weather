@@ -1,6 +1,6 @@
 import { convertToTime, sortByEachDay } from '@/utils';
 import { apiService } from './api-service';
-import type { CityResponse, WeatherCurrent, WeatherCurrentResponse } from '@/models';
+import type { CityResponse, ForecastDay, WeatherCurrent, WeatherCurrentResponse } from '@/models';
 
 export const transformService = {
   simplifyCurrent(obj: WeatherCurrentResponse): WeatherCurrent {
@@ -32,7 +32,7 @@ export const transformService = {
       key: Math.random(),
     };
   },
-  transformForecastArray(array) {
+  transformForecastArray(array: ForecastDay[]) {
     return sortByEachDay(array);
   }
 };

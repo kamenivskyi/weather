@@ -56,11 +56,11 @@ export const apiService = {
     return transformService.simplifyCurrent(res);
   },
 
-  async getForecast(lat: number, lon: number): Promise<ForecastDay[][]> {
+  async getForecast(lat: number, lon: number): Promise<ForecastDay[][] | null> {
     const res = await this.getWeatherResource(`/forecast?lat=${lat}&lon=${lon}`);
     // console.log('api forecast: ', res)
 
-    return res?.list ? transformService.transformForecastArray(res.list) : { list: [] };
+    return res?.list ? transformService.transformForecastArray(res.list) : null;
   },
 
   async getWeather(lat: number, lon: number) {
