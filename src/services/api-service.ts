@@ -50,20 +50,20 @@ export const apiService = {
     return null;
   },
 
-  async getCurrent(lat: number, lon: number): Promise<WeatherCurrent> {
-    const res = await this.getWeatherResource(`/weather?lat=${lat}&lon=${lon}`);
+  async getCurrent(lat: number, lon: number, lang: 'en' | 'ua'): Promise<WeatherCurrent> {
+    const res = await this.getWeatherResource(`/weather?lat=${lat}&lon=${lon}&lang=${lang}`);
     return transformService.simplifyCurrent(res);
   },
 
-  async getForecast(lat: number, lon: number): Promise<ForecastDay[][] | null> {
-    const res = await this.getWeatherResource(`/forecast?lat=${lat}&lon=${lon}`);
+  async getForecast(lat: number, lon: number, lang: 'en' | 'ua'): Promise<ForecastDay[][] | null> {
+    const res = await this.getWeatherResource(`/forecast?lat=${lat}&lon=${lon}&lang=${lang}`);
 
     return res?.list ? transformService.transformForecastArray(res.list) : null;
   },
 
-  async getWeather(lat: number, lon: number) {
+  async getWeather(lat: number, lon: number, lang: 'en' | 'ua') {
     // apiService.getCurrent(lat, lon);
-    return Promise.all([this.getCurrent(lat, lon), this.getForecast(lat, lon)]);
+    return Promise.all([this.getCurrent(lat, lon, lang), this.getForecast(lat, lon, lang)]);
   },
 
   getIconUrl(iconCode: string) {
