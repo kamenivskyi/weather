@@ -19,10 +19,4 @@ const props = defineProps<Props>();
 
 const { t } = useI18n();
 
-watch(
-  () => props.data,
-  (newData) => {
-    console.log('its new DATA: ', newData);
-  }
-);
 </script>

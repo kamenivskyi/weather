@@ -110,7 +110,7 @@ const selectedRegime = computed(() => props.data.selectedRegime);
 const selectedCity = computed(() => props.data.selectedCity);
 const currentWeather = computed(() => props.data.currentWeather);
 const forecastWeather = computed(() => props.data.forecastWeather);
-const isChosen = computed(() => chosenStore.isCityChosen(props.data.id));
+const isChosen = computed(() => props.data.currentWeather && chosenStore.isCityChosen(props.data.currentWeather.id));
 const hasData = computed(() => currentWeather.value && forecastWeather.value);
 
 watch(value, (newVal: string) => {
@@ -143,7 +143,7 @@ const searchWeather = async () => {
   );
 };
 
-const populateWeatherData = (current: WeatherCurrent, forecast: ForecastDay[][]) => {
+const populateWeatherData = (current: WeatherCurrent, forecast: ForecastDay[][] | null) => {
   homeStore.setCurrentWeather(props.data.id, current);
   homeStore.setForecastWeather(props.data.id, forecast);
 };
@@ -167,7 +167,6 @@ const handleRegimeClick = (value: 'day' | 'week') => {
 
 const debounceValueChange = debounce((newVal: string) => {
   handleSearchCities(newVal);
-  console.log('newVal: ', newVal);
 }, 1000);
 
 const handleCityClick = (lat: number, lon: number) => {
@@ -184,19 +183,22 @@ const handleRemoveCard = () => {
 
 const handleAddToChosen = () => {
   if (props.data.selectedCity) {
-    console.log('chose: ', props.data.selectedCity);
-    chosenStore.addChosenCity({
+    
+    const chosenCity = {
       ...props.data.selectedCity,
       current: props.data.currentWeather,
       forecast: props.data.forecastWeather,
       id: props.data.id
-    });
+    };
+    console.log('chose: ', chosenCity);
+    
+    chosenStore.addChosenCity(chosenCity);
   }
 };
 
 const handleRemoveFromChosen = () => {
-  if (props.data.id) {
-    chosenStore.removeChosenCity(props.data.id);
+  if (props.data.currentWeather) {
+    chosenStore.removeChosenCity(props.data.currentWeather.id);
   }
 };
 
@@ -213,7 +215,5 @@ const handleSearchCities = async (newVal: string) => {
   isSearching.value = false;
   emptyCities.value = data && data?.length === 0;
   isDropdownOpened.value = data?.length > 0;
-
-  console.log('cities: ', cities);
 };
 </script>

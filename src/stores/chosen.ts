@@ -31,20 +31,20 @@ export const useChosenStore = defineStore('chosenStore', () => {
 
   const addChosenCity = (city: ChosenCity) => {
     console.log('chose: ', city);
-    if (!isCityChosen(city)) {
+    if (city.current?.id && !isCityChosen(city.current?.id)) {
       data.value.chosenCities.push(city);
     }
   };
 
   const removeChosenCity = (id: number) => {
-    const index = data.value.chosenCities.findIndex((city) => city.id === id);
+    const index = data.value.chosenCities.findIndex((city) => city.current?.id === id);
     if (index !== -1) {
       data.value.chosenCities.splice(index, 1);
     }
   };
 
   const isCityChosen = (id: number) => {
-    return data.value.chosenCities.some((chosenCity) => chosenCity.id === id);
+    return data.value.chosenCities.some((chosenCity) => chosenCity.current?.id === id);
   };
 
   const chosenCities = computed(() => data.value.chosenCities);
