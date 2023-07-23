@@ -1,7 +1,7 @@
 <template>
   <div class="u-mb-3">{{ t('chosenPage.title') }}</div>
   <template v-if="data && data.length > 0">
-    <WeatherCardDataForecastDay v-for="item in data" :data="item" />
+    <WeatherCardDataForecastDay v-for="(item, idx) in data" :key="idx" :data="item" />
   </template>
 </template>
 

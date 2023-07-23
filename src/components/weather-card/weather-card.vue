@@ -23,6 +23,7 @@
         <div v-else-if="isDropdownOpened" class="c-weather-card__dropdown">
           <AppButton
             v-for="item in cities"
+            :key="item.key"
             class="c-weather-card__dropdown-item"
             @click="handleCityClick(item.lat, item.lon)"
           >
@@ -86,13 +87,6 @@ import { useHomeCardsStore, type WeatherCardInterface } from '@/stores/home-card
 import { useChosenStore, type ChosenCity } from '@/stores/chosen';
 import { useI18n } from 'vue-i18n';
 
-const value = ref('');
-const isDropdownOpened = ref(false);
-const cities = ref<DropdownCity[] | null>(null);
-const isSearching = ref(false);
-const isWeatherLoading = ref(false);
-const emptyCities = ref(false);
-
 interface Props {
   data: WeatherCardInterface;
   isLoadingByIp: boolean;
@@ -104,6 +98,13 @@ const emit = defineEmits(['remove']);
 const homeStore = useHomeCardsStore();
 const chosenStore = useChosenStore();
 const { t } = useI18n();
+
+const value = ref('');
+const isDropdownOpened = ref(false);
+const cities = ref<DropdownCity[] | null>(null);
+const isSearching = ref(false);
+const isWeatherLoading = ref(false);
+const emptyCities = ref(false);
 
 const selectedRegime = computed(() => props.data.selectedRegime);
 const selectedCity = computed(() => props.data.selectedCity);

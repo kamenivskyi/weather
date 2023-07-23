@@ -1,6 +1,6 @@
 <template>
   <div class="c-weather-card__forecast-day">
-    <div v-for="item in data" class="c-weather-card__forecast-day-item">
+    <div v-for="item in data" :key="item.dt" class="c-weather-card__forecast-day-item">
       <div v-if="item.dt_txt" class="c-weather-card__data-item">{{ getHours(item.dt_txt) }}</div>
       <img
         v-if="item.weather[0].icon"
