@@ -13,27 +13,27 @@
         />
       </div>
       <AppModal :isOpen="showMaxBlocksModal" @close="onClose" title="Notification">
-        <p class="u-mb-3">{{ $t('modals.max5blocksMessage') }}</p>
+        <p class="u-mb-3">{{ t('modals.max5blocksMessage') }}</p>
         <AppButton @click="showMaxBlocksModal = false">
-          {{ $t('modals.closeModal') }}
+          {{ t('modals.closeModal') }}
         </AppButton>
       </AppModal>
 
       <AppModal
         :isOpen="showConfirmRemoveModal"
         @close="onCloseConfirmRemoveModal"
-        :title="$t('modals.titleDefault')"
+        :title="t('modals.titleDefault')"
       >
-        <p class="u-mb-3">{{ $t('modals.confirmRemoveBlock.message') }}</p>
+        <p class="u-mb-3">{{ t('modals.confirmRemoveBlock.message') }}</p>
         <div>
-          <AppButton @click="showConfirmRemoveModal = false">{{ $t('modals.confirmRemoveBlock.no') }}</AppButton>
+          <AppButton @click="showConfirmRemoveModal = false">{{ t('modals.confirmRemoveBlock.no') }}</AppButton>
           <AppButton 
             @click="handleRemoveClick" 
             variant="danger" 
             pill 
             class="u-ml-20"
           >
-          {{ $t('modals.confirmRemoveBlock.yes') }}
+          {{ t('modals.confirmRemoveBlock.yes') }}
           </AppButton
           >
         </div>
@@ -42,9 +42,9 @@
       <AppModal
         :isOpen="showCantRemoveModal"
         @close="onCloseShowCantRemoveModal"
-        :title="$t('modals.titleDefault')"
+        :title="t('modals.titleDefault')"
       >
-        <p class="u-mb-3">{{ $t('modals.cantRemoveLastBlock') }}</p>
+        <p class="u-mb-3">{{ t('modals.cantRemoveLastBlock') }}</p>
         <div>
           <AppButton @click="showCantRemoveModal = false">Ok</AppButton>
         </div>
@@ -62,8 +62,10 @@ import { useHomeCardsStore } from '@/stores/home-cards';
 import type { WeatherCardInterface } from '@/stores/home-cards';
 import { getGeolocation } from '@/utils';
 import i18n from '@/locales/i18n';
+import { useI18n } from 'vue-i18n';
 
 const store = useHomeCardsStore();
+const { t } = useI18n();
 
 const showMaxBlocksModal = ref(false);
 const showConfirmRemoveModal = ref(false);
@@ -80,9 +82,6 @@ onMounted(() => {
   }
 });
 
-const changeLocale = () => {
-  i18n.global.locale = 'en';
-};
 
 const MAX_ALLOWED_BLOCKS = 5;
 

@@ -1,9 +1,10 @@
 import { WEATHER_SETTINGS_LANG_KEY } from "@/constants/local-storage-keys";
-import i18n from "@/locales/i18n";
 import { defineStore } from "pinia";
 import { ref, watch } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 export const useSettingsStore = defineStore('settingsStore', () => {
+  const { locale } = useI18n();
   const selectedLang = ref('en');
 
   if (window.localStorage.getItem(WEATHER_SETTINGS_LANG_KEY)) {
@@ -13,7 +14,7 @@ export const useSettingsStore = defineStore('settingsStore', () => {
   watch(selectedLang, (newValue) => {
     window.localStorage.setItem(WEATHER_SETTINGS_LANG_KEY, JSON.stringify(newValue));
     
-    i18n.global.locale = newValue;
+    locale.value = newValue;
   });
 
   return {

@@ -28,7 +28,8 @@ export const transformService = {
       id: item.id,
       label: `${item.city} ${item.countryCode}`,
       lat: item.latitude,
-      lon: item.longitude
+      lon: item.longitude,
+      key: Math.random(),
     };
   },
   transformForecastArray(array) {

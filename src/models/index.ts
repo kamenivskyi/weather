@@ -62,6 +62,7 @@ export interface DropdownCity {
   lat: number;
   lon: number;
   label: string;
+  key: number;
 }
 
 export interface Coord {
