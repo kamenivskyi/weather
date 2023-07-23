@@ -22,7 +22,13 @@
           </AppButton>
         </div>
 
-        <AppButton @click="handleRemoveClick(id)" variant="danger">Remove</AppButton>
+        <AppButton 
+          v-if="current" 
+          @click="handleRemoveClick(current?.id)" 
+          variant="danger"
+        >
+          Remove
+        </AppButton>
       </div>
     </div>
 
