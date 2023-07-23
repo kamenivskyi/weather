@@ -9,12 +9,14 @@ import type { VNodeRef } from 'vue';
 import Chart from 'chart.js/auto';
 import type { ForecastDay } from '@/models';
 import { lineChartOptions } from '@/constants';
+import { useI18n } from 'vue-i18n';
 
 interface Props {
   data: ForecastDay[][] | null;
 }
 
 const props = defineProps<Props>();
+const { t } = useI18n();
 
 const canvasRef = ref<VNodeRef | null>(null);
 const chart = ref<any>(null);
@@ -75,7 +77,7 @@ function initChart() {
         labels: daysOfWeek.value,
         datasets: [
           {
-            label: 'Average Temperature by day',
+            label: t('chart.forecast.legend'),
             borderWidth: 2,
             data: averageTemperatures.value
           }

@@ -5,7 +5,7 @@ import { useI18n } from 'vue-i18n';
 
 export const useSettingsStore = defineStore('settingsStore', () => {
   const { locale } = useI18n();
-  const selectedLang = ref('en');
+  const selectedLang = ref<'en' | 'ua'>('en');
 
   if (window.localStorage.getItem(WEATHER_SETTINGS_LANG_KEY)) {
     selectedLang.value = JSON.parse(window.localStorage.getItem(WEATHER_SETTINGS_LANG_KEY) || 'en');

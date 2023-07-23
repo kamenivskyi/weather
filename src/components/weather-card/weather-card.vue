@@ -86,6 +86,7 @@ import WeatherCardForecastChart from '@/components/weather-card/weather-card-for
 import { useHomeCardsStore, type WeatherCardInterface } from '@/stores/home-cards';
 import { useChosenStore, type ChosenCity } from '@/stores/chosen';
 import { useI18n } from 'vue-i18n';
+import { useSettingsStore } from '@/stores/settings';
 
 interface Props {
   data: WeatherCardInterface;
@@ -96,6 +97,7 @@ const props = defineProps<Props>();
 const emit = defineEmits(['remove']);
 
 const homeStore = useHomeCardsStore();
+const settings = useSettingsStore();
 const chosenStore = useChosenStore();
 const { t } = useI18n();
 
@@ -112,6 +114,7 @@ const currentWeather = computed(() => props.data.currentWeather);
 const forecastWeather = computed(() => props.data.forecastWeather);
 const isChosen = computed(() => props.data.currentWeather && chosenStore.isCityChosen(props.data.currentWeather.id));
 const hasData = computed(() => currentWeather.value && forecastWeather.value);
+const lang = computed(() => settings.selectedLang);
 
 watch(value, (newVal: string) => {
   if (newVal.trim()) {
@@ -129,18 +132,26 @@ watch(value, (newVal: string) => {
 
 watch(selectedCity, (city: SelectedCity | null) => {
   if (city) {
-    isWeatherLoading.value = true;
-
-    searchWeather().then(() => {
-      isWeatherLoading.value = false;
-    });
+    searchWeather();
   }
 });
 
+watch(lang, (newLang) => {
+  refetchData(newLang);
+});
+
+const refetchData = (lang: 'en' | 'ua') => {
+  console.log('lang change: ', lang);
+  searchWeather();
+}
+
 const searchWeather = async () => {
-  return Promise.all([handleSearchCurrent(), handleSearchForecast()]).then(([current, forecast]) =>
-    populateWeatherData(current, forecast)
-  );
+  isWeatherLoading.value = true;
+
+  return Promise.all([handleSearchCurrent(), handleSearchForecast()]).then(([current, forecast]) => {
+    populateWeatherData(current, forecast);
+    isWeatherLoading.value = false;
+  });
 };
 
 const populateWeatherData = (current: WeatherCurrent, forecast: ForecastDay[][] | null) => {
@@ -149,13 +160,21 @@ const populateWeatherData = (current: WeatherCurrent, forecast: ForecastDay[][] 
 };
 
 const handleSearchCurrent = async () => {
-  const data = await apiService.getCurrent(selectedCity.value?.lat!, selectedCity.value?.lon!);
+  const data = await apiService.getCurrent(
+    selectedCity.value?.lat!, 
+    selectedCity.value?.lon!, 
+    lang.value
+  );
 
   return Promise.resolve(data);
 };
 
 const handleSearchForecast = async () => {
-  const data = await apiService.getForecast(selectedCity.value?.lat!, selectedCity.value?.lon!);
+  const data = await apiService.getForecast(
+    selectedCity.value?.lat!, 
+    selectedCity.value?.lon!, 
+    lang.value
+  );
 
   return Promise.resolve(data);
 };
