@@ -10,7 +10,7 @@
               'u-bg--primary': selectedRegime === 'day'
             }"
           >
-            {{ $t('card.tabs.day') }}
+            {{ t('card.tabs.day') }}
           </AppButton>
           <AppButton
             @click="handleRegimeClick('week')"
@@ -18,7 +18,7 @@
               'u-bg--primary': selectedRegime === 'week'
             }"
           >
-          {{ $t('card.tabs.week') }}
+          {{ t('card.tabs.week') }}
           </AppButton>
         </div>
 
@@ -53,6 +53,7 @@ import WeatherCardDataForecast from '@/components/weather-card/weather-card-data
 import WeatherCardForecastChart from '@/components/weather-card/weather-card-forecast-chart.vue';
 import WeatherCardDataCurrent from '@/components/weather-card/weather-card-data-current.vue';
 import AppButton from '@/components/app-button.vue';
+import { useI18n } from 'vue-i18n';
 
 interface Props {
   current: WeatherCurrent | null;
@@ -67,6 +68,7 @@ const selectedRegime = ref<'day' | 'week'>('day');
 const props = defineProps<Props>();
 const emit = defineEmits(['removeChoosen']);
 
+const { t } = useI18n();
 
 const handleRegimeClick = (value: 'day' | 'week') => {
   selectedRegime.value = value;

@@ -16,7 +16,7 @@
         </div>
       </template>
       <template v-if="!hasChosenCities">
-        <p>{{ $t('chosenPage.noCities') }}</p>
+        <p>{{ t('chosenPage.noCities') }}</p>
       </template>
     </div>
   </div>
@@ -26,8 +26,10 @@
 import ChosenWeatherCard from '@/components/chosen-weather-card/chosen-weather-card.vue';
 import { useChosenStore } from '@/stores/chosen';
 import { computed } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 const chosenStore = useChosenStore();
+const { t } = useI18n();
 
 const cities = computed(() => chosenStore.chosenCities);
 const hasChosenCities = computed(() => cities.value.length > 0);

@@ -4,21 +4,21 @@
       <div class="c-weather-card__search-panel">
         <div class="u-row u-mb-3">
           <AppButton v-if="isChosen" @click="handleRemoveFromChosen" variant="warning" pill>
-            {{ $t('card.removeFromChosen') }}
+            {{ t('card.removeFromChosen') }}
           </AppButton>
           <AppButton v-else-if="hasData" @click="handleAddToChosen" variant="primary" pill>
-            {{ $t('card.addToChosen') }}
+            {{ t('card.addToChosen') }}
           </AppButton>
           <AppButton @click="handleRemoveCard" variant="danger" pill class="u-ml-20">
-            {{ $t('card.removeBlock') }}
+            {{ t('card.removeBlock') }}
           </AppButton>
         </div>
 
-        <input v-if="!hasData" v-model="value" class="c-input" type="search" :placeholder="$t('input.placeholder')" />
+        <input v-if="!hasData" v-model="value" class="c-input" type="search" :placeholder="t('input.placeholder')" />
 
         <AppSpinner v-if="isSearching" />
 
-        <template v-else-if="emptyCities">{{ $t('notFound') }}</template>
+        <template v-else-if="emptyCities">{{ t('notFound') }}</template>
 
         <div v-else-if="isDropdownOpened" class="c-weather-card__dropdown">
           <AppButton
@@ -38,7 +38,7 @@
           'u-bg--primary': selectedRegime === 'day'
         }"
       >
-        {{ $t('card.tabs.day') }}
+        {{ t('card.tabs.day') }}
       </AppButton>
       <AppButton
         @click="handleRegimeClick('week')"
@@ -46,7 +46,7 @@
           'u-bg--primary': selectedRegime === 'week'
         }"
       >
-      {{ $t('card.tabs.week') }}
+      {{ t('card.tabs.week') }}
       </AppButton>
     </div>
 
@@ -84,6 +84,7 @@ import WeatherCardCurrentChart from '@/components/weather-card/weather-card-curr
 import WeatherCardForecastChart from '@/components/weather-card/weather-card-forecast-chart.vue';
 import { useHomeCardsStore, type WeatherCardInterface } from '@/stores/home-cards';
 import { useChosenStore, type ChosenCity } from '@/stores/chosen';
+import { useI18n } from 'vue-i18n';
 
 const value = ref('');
 const isDropdownOpened = ref(false);
@@ -102,6 +103,7 @@ const emit = defineEmits(['remove']);
 
 const homeStore = useHomeCardsStore();
 const chosenStore = useChosenStore();
+const { t } = useI18n();
 
 const selectedRegime = computed(() => props.data.selectedRegime);
 const selectedCity = computed(() => props.data.selectedCity);
