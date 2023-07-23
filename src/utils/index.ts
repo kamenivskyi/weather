@@ -43,7 +43,6 @@ export const getGeolocation = (): Promise<GeolocationCoords> => {
 };
 
 export const convertToTime = (value: number) => {
-  console.log('convertTime val: ', value);
 
   const date = new Date(value * 1000);
   const hours = addZero(date.getHours());
@@ -54,7 +53,6 @@ export const convertToTime = (value: number) => {
 };
 
 const addZero = (value: any) => {
-  console.log('val: ', value);
   if (value.toString().length < 2) {
     value = '0' + value;
   }

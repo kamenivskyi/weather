@@ -122,17 +122,14 @@ const handleAddNewCard = () => {
     store.addWeatherCard(newCard);
   } else {
     showMaxBlocksModal.value = true;
-    console.log('no more allowed');
   }
 };
 
 const handleRemoveCard = (id: number) => {
-
   if (allowToRemove.value) {
     removeCardId.value = id;
     showConfirmRemoveCard();
   } else {
-    console.log('no allowed');
     showCantRemoveModal.value = true;
   }
 };

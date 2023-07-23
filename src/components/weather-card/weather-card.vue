@@ -167,7 +167,6 @@ const handleRegimeClick = (value: 'day' | 'week') => {
 
 const debounceValueChange = debounce((newVal: string) => {
   handleSearchCities(newVal);
-  console.log('newVal: ', newVal);
 }, 1000);
 
 const handleCityClick = (lat: number, lon: number) => {
@@ -216,7 +215,5 @@ const handleSearchCities = async (newVal: string) => {
   isSearching.value = false;
   emptyCities.value = data && data?.length === 0;
   isDropdownOpened.value = data?.length > 0;
-
-  console.log('cities: ', cities);
 };
 </script>

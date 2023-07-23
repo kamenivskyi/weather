@@ -27,7 +27,6 @@ export const apiService = {
         ...this.CITIES_OPTIONS,
         url: `${this.CITIES_BASE_URL}/cities?minPopulation=${MIN_POPULATION}&namePrefix=${name}`
       });
-      console.log('cities: ', data.data);
 
       return data.data?.length ? data.data.map(transformService.simplifyCity) : data.data;
     } catch (error: unknown) {
@@ -58,7 +57,6 @@ export const apiService = {
 
   async getForecast(lat: number, lon: number): Promise<ForecastDay[][] | null> {
     const res = await this.getWeatherResource(`/forecast?lat=${lat}&lon=${lon}`);
-    // console.log('api forecast: ', res)
 
     return res?.list ? transformService.transformForecastArray(res.list) : null;
   },
