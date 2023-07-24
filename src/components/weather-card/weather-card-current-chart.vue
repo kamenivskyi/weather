@@ -11,13 +11,15 @@ interface Props {
 
 const props = defineProps<Props>();
 
-import { onMounted, ref, watch } from 'vue';
+import { onMounted, ref, watch, nextTick } from 'vue';
 import type { VNodeRef } from 'vue';
 import Chart from 'chart.js/auto';
 import { lineChartOptions } from '@/constants';
 import { useI18n } from 'vue-i18n';
+import { useSettingsStore } from '@/stores/settings';
 
 const { t } = useI18n();
+const settings = useSettingsStore();
 
 const canvasRef = ref<VNodeRef | null>(null);
 const chart = ref<any>(null);
@@ -35,6 +37,11 @@ watch(
   },
   { immediate: true, deep: true }
 );
+watch(() => settings.selectedLang, (settings) => {
+  nextTick(() => {
+    initChart();
+  })
+}, { deep: true });
 
 function initChart() {
   if (chart.value) {

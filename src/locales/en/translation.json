@@ -57,6 +57,8 @@
       "maxTemperature": "Max"
     }
   },
-  "Home link": "Home",
-  "Random link": "Random"
+  "darkMode": {
+    "on": "Set dark theme",
+    "off": "Set light theme"
+  }
 }

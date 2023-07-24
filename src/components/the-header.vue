@@ -3,10 +3,15 @@
     <div class="container">
       <div class="o-header__inner">
         <a href="#" class="o-header__logo">{{ t("logo") }}</a>
-        <select v-model="store.selectedLang" class="o-header__select" name="select">
-          <option value="en">EN</option>
-          <option value="ua">UA</option>
-        </select>
+        <div class="u-row u-align-items-center">
+          <select v-model="settings.selectedLang" class="o-header__select" name="select">
+            <option value="en">EN</option>
+            <option value="ua">UA</option>
+          </select>
+          <AppButton @click="settings.toggleTheme()">
+            {{ settings.isDarkTheme ? t('darkMode.on') : t('darkMode.off') }}
+          </AppButton>
+        </div>
       </div>
     </div>
   </header>
@@ -15,7 +20,8 @@
 <script setup lang="ts">
 import { useSettingsStore } from '@/stores/settings';
 import { useI18n } from 'vue-i18n';
-const store = useSettingsStore();
+import AppButton from '@/components/app-button.vue';
+const settings = useSettingsStore();
 
 const { t } = useI18n();
 </script>

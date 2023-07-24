@@ -1,7 +1,15 @@
+.dark {
+  .o-footer {
+    background-color: $dark;
+    color: $light;
+  }
+}
+
 .o-footer {
   padding: 15px 0;
   background-color: $light-200;
   color: $dark;
+  transition: 0.3s background-color;
 
   &__inner {
     display: flex;

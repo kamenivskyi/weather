@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref, watch } from 'vue';
+import { computed, nextTick, onMounted, ref, watch } from 'vue';
 import format from 'date-fns/format';
 import fromUnixTime from 'date-fns/fromUnixTime';
 import type { VNodeRef } from 'vue';
@@ -72,6 +72,12 @@ watch(
   },
   { immediate: true, deep: true }
 );
+
+watch(() => settings.selectedLang, (settings) => {
+  nextTick(() => {
+    initChart();
+  })
+}, { deep: true });
 
 function initChart() {
   if (chart.value) {

@@ -17,3 +17,14 @@ body {
   background-color: $primary !important;
   color: $light !important;
 }
+
+.light  {
+  background-color: $light;
+  color: $dark;
+}
+
+.dark {
+  background-color: $dark-200;
+  color: $light;
+  transition: 0.3s background-color;
+}

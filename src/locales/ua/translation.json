@@ -57,6 +57,8 @@
       "maxTemperature": "Макc"
     }
   },
-  "Home link": "Home",
-  "Random link": "Random"
+  "darkMode": {
+    "on": "Включити темну тему",
+    "off": "Включити світлу тему"
+  }
 }

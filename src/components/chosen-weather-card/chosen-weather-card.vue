@@ -31,7 +31,7 @@
         </AppButton>
       </div>
     </div>
-
+  
     <template v-if="selectedRegime === 'day'">
       <WeatherCardDataCurrent v-if="current" :data="current" />
 
