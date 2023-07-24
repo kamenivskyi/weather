@@ -9,7 +9,7 @@
             <option value="ua">UA</option>
           </select>
           <AppButton @click="settings.toggleTheme()">
-            {{ settings.isDarkTheme ? t('darkMode.on') : t('darkMode.off') }}
+            {{ settings.isDarkTheme ? t('darkMode.off') : t('darkMode.on') }}
           </AppButton>
         </div>
       </div>
