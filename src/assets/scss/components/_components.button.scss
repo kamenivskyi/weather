@@ -3,7 +3,8 @@ $shadow-hover: rgba(41, 56, 221, 0.125);
 .c-button {
   position: relative;
   border: none;
-  padding: 10px 20px;
+  padding: 10px 13px;
+  font-size: 12px;
   cursor: pointer;
   overflow: hidden;
 
@@ -71,5 +72,12 @@ $shadow-hover: rgba(41, 56, 221, 0.125);
   &__text {
     position: relative;
     z-index: 2;
+  }
+}
+
+@media (min-width: 568px) {
+  .c-button {
+    padding: 10px 20px;
+    font-size: 13px;
   }
 }
